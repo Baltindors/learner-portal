@@ -4,7 +4,7 @@
 
     <ActivityRail 
       v-if="mySavedLibrary && mySavedLibrary.length > 0"
-      title="My Saved Library" 
+      title="My Saved" 
       :items="mySavedLibrary" 
     />
 
