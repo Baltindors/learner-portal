@@ -17,10 +17,6 @@
         {{activity.ceAmount}}
       </span>
 
-      <div class="absolute bottom-2 right-2 bg-white text-slate-900 text-[10px] font-bold px-1.5 py-0.5 rounded shadow z-10">
-        {{ activity.duration || '00:00' }}
-      </div>
-
       <div v-if="activity.progress" class="absolute bottom-0 left-0 right-0 h-1.5 bg-white/40 z-10">
         <div class="h-full bg-[#34A853]" :style="{ width: activity.progress + '%' }"></div>
       </div>
@@ -49,14 +45,18 @@
         </button>
       </div>
       
-      <div class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mt-auto flex items-center">
+      <div class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mt-auto flex items-center flex-wrap gap-y-1">
         <template v-if="activity.totalEpisodes">
           <span>{{ activity.totalEpisodes }} EPISODES</span>
           <span v-if="activity.currentEpisode" class="mx-1.5">&bull;</span>
           <span v-if="activity.currentEpisode">PART {{ activity.currentEpisode }}</span>
+          <span v-if="activity.duration" class="mx-1.5">&bull;</span>
+          <span v-if="activity.duration">{{ activity.duration }}</span>
         </template>
         <template v-else>
           <span>{{activity.releaseDate}}</span>
+          <span v-if="activity.duration" class="mx-1.5">&bull;</span>
+          <span v-if="activity.duration">{{ activity.duration }}</span>
         </template>
       </div>
     </div>
