@@ -17,6 +17,11 @@ const router = createRouter({
       path: '/activity/:id',
       name: 'activity',
       component: () => import('../views/ActivityView.vue')
+    },
+    {
+      path: '/center/:name',
+      name: 'center',
+      component: () => import('../views/CenterView.vue') 
     }
   ],
   scrollBehavior() {
