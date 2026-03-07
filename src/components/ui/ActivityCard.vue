@@ -1,40 +1,63 @@
 <template>
   <div 
     @click="handleClick"
-    class="bg-white rounded-lg overflow-hidden border border-slate-200 hover:border-[#277FCB] transition-all cursor-pointer group custom-shadow flex flex-col h-full"
+    class="flex flex-col gap-3 cursor-pointer group h-full"
   >
-    <div class="bg-slate-200 aspect-video relative overflow-hidden flex-shrink-0">
+    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-slate-200 flex-shrink-0 shadow-sm">
       <img
         v-if="activity.thumbnail"
         :src="activity.thumbnail"
         alt=""
-        class="absolute inset-0 w-full h-full object-cover"
+        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-      <span class="absolute top-2 left-2 bg-white/90 text-slate-800 text-[10px] font-bold px-2 py-0.5 rounded">{{activity.ceAmount}}</span>
       
-      <!-- Primary tag display -->
-      <div class="absolute bottom-2 left-2 right-2 text-white font-bold text-xs truncate">
-        {{ activity.tags[0] }}  
+      <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
+
+      <span v-if="activity.ceAmount" class="absolute top-2 left-2 bg-white/90 text-slate-800 text-[10px] font-bold px-2 py-0.5 rounded shadow z-10">
+        {{activity.ceAmount}}
+      </span>
+
+      <div class="absolute bottom-2 right-2 bg-white text-slate-900 text-[10px] font-bold px-1.5 py-0.5 rounded shadow z-10">
+        {{ activity.duration || '00:00' }}
       </div>
-      
-      <div v-if="compact" class="absolute bottom-2 right-2 bg-[#03C84F] w-2 h-2 rounded-full shadow-[0_0_8px_rgba(3,200,79,0.8)]"></div>
+
+      <div v-if="activity.progress" class="absolute bottom-0 left-0 right-0 h-1.5 bg-white/40 z-10">
+        <div class="h-full bg-[#34A853]" :style="{ width: activity.progress + '%' }"></div>
+      </div>
+
+      <div class="absolute inset-0 bg-[#065184]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center z-20">
+        <svg class="w-14 h-14 text-white mb-2 drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
+        </svg>
+        <span class="text-white text-xs font-bold uppercase tracking-widest">{{ activity.type || 'Activity' }}</span>
+      </div>
     </div>
     
-    <div class="p-4 flex flex-col flex-grow">
-      <h3 class="text-sm font-bold leading-snug line-clamp-2 group-hover:text-[#277FCB] transition-colors mb-2 flex-grow">
-        {{activity.title}}
-      </h3>
-      
-      <div v-if="!compact" class="flex items-center justify-between text-[11px] text-slate-500 mt-auto">
-        <span>Released: {{activity.releaseDate}}</span>
-        <span class="flex items-center gap-1">
-          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg> 
-          Audio
-        </span>
+    <div class="flex flex-col flex-grow px-1">
+      <div class="flex items-start justify-between gap-3 mb-1">
+        <h3 class="text-[15px] font-bold leading-snug line-clamp-2 group-hover:text-[#277FCB] transition-colors text-slate-900 dark:text-white">
+          {{activity.title}}
+        </h3>
+        
+        <button 
+          @click.stop="toggleLibrary" 
+          class="text-slate-400 hover:text-[#277FCB] transition-colors p-1 flex-shrink-0 mt-0.5"
+          title="Add to Library"
+        >
+          <svg v-if="!activity.inLibrary" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+          <svg v-else class="w-5 h-5 text-[#277FCB]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+        </button>
       </div>
-      <div v-else class="text-[11px] text-slate-500 uppercase tracking-tighter mt-auto">
-        {{activity.releaseDate}}
+      
+      <div class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mt-auto flex items-center">
+        <template v-if="activity.totalEpisodes">
+          <span>{{ activity.totalEpisodes }} EPISODES</span>
+          <span v-if="activity.currentEpisode" class="mx-1.5">&bull;</span>
+          <span v-if="activity.currentEpisode">PART {{ activity.currentEpisode }}</span>
+        </template>
+        <template v-else>
+          <span>{{activity.releaseDate}}</span>
+        </template>
       </div>
     </div>
   </div>
@@ -65,5 +88,11 @@ const handleClick = () => {
   
   // Navigate to player view
   router.push({ name: 'activity', params: { id: props.activity.id } });
+};
+
+// Handle adding/removing from library
+const toggleLibrary = () => {
+  // .stop modifier on the @click above prevents the parent card from navigating
+  props.activity.inLibrary = !props.activity.inLibrary;
 };
 </script>

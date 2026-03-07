@@ -6,9 +6,17 @@ const searchQuery = ref('');
 const activeEpisode = ref(null);
 const isPlaying = ref(false);
 
+// Moved outside the function so the saved library state persists 
+// across different components and page navigation!
+const activities = ref(mockActivities);
+
 export function useActivities() {
-  const activities = ref(mockActivities);
   const therapeuticAreas = ref(therapeuticAreasList);
+
+  // NEW: Computed property for saved library items
+  const mySavedLibrary = computed(() => {
+    return activities.value.filter(item => item.inLibrary === true);
+  });
 
   const filteredList = computed(() => {
     if (!searchQuery.value) return [];
@@ -70,6 +78,9 @@ export function useActivities() {
     therapeuticAreas,
     groupedByArea,
     setGlobalSearch,
+    
+    // NEW: Export the library so components can use it
+    mySavedLibrary,
     
     // Player specific state
     activeEpisode,

@@ -9,6 +9,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "15:30",
     therapeuticAreas: ["Infectious Disease", "Internal Medicine"],
+    type: "Podcast",                       
+    duration: "16:30",                     
+    progress: 45,                          
+    totalEpisodes: 2,                      
+    currentEpisode: 1,                     
+    inLibrary: false,                      
     thumbnail: "https://placehold.co/600x400/277FCB/FFFFFF?text=PrEP+Implementation"
   },
   {
@@ -21,6 +27,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "22:15",
     therapeuticAreas: ["Oncology"],
+    type: "Podcast",                       
+    duration: "16:30",                     
+    progress: 15,                          
+    totalEpisodes: 5,                      
+    currentEpisode: 2,                     
+    inLibrary: false,
     thumbnail: "https://placehold.co/600x400/277FCB/FFFFFF?text=Novel+Therapy"
   },
   {
@@ -33,6 +45,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "18:40",
     therapeuticAreas: ["Oncology"],
+    type: "Podcast",                       
+    duration: "15:30",                     
+    progress: 0,                          
+    totalEpisodes: 2,                      
+    currentEpisode: 1,                     
+    inLibrary: false,
     thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=Diagnosis+to+Surgery"
   },
   {
@@ -45,6 +63,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "12:05",
     therapeuticAreas: ["Internal Medicine"],
+    type: "Podcast",                       
+    duration: "12:25",                     
+    progress: 0,                          
+    totalEpisodes: 3,                      
+    currentEpisode: 1,                     
+    inLibrary: false,
     thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=Pancreatic+Cysts"
   },
   {
@@ -57,6 +81,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "25:50",
     therapeuticAreas: ["Infectious Disease", "Internal Medicine", "OB/GYN & Women's Health", "Public Health & Prevention"],
+    type: "Podcast",                       
+    duration: "15:00",                     
+    progress: 0,                          
+    totalEpisodes: 5,                      
+    currentEpisode: 1,                     
+    inLibrary: false,
     thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=Accelerating+HIV+Prevention"    
   },
   {
@@ -69,6 +99,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "19:20",
     therapeuticAreas: ["Infectious Disease", "Internal Medicine"],
+    type: "Podcast",                       
+    duration: "15:30",                     
+    progress: 0,                          
+    totalEpisodes: 3,                      
+    currentEpisode: 1,                     
+    inLibrary: false,
     thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=Providing+Holistic+Counseling"    
   },
   {
@@ -81,6 +117,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "30:15",
     therapeuticAreas: ["Neurology", "Pediatrics"],
+    type: "Podcast",                       
+    duration: "14:50",                     
+    progress: 0,                          
+    totalEpisodes: 2,                      
+    currentEpisode: 1,                     
+    inLibrary: false,
     thumbnail: "https://placehold.co/600x400/277FCB/FFFFFF?text=Multidisciplinary+Strategies+Long-Term"    
   },
   {
@@ -93,6 +135,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "21:10",
     therapeuticAreas: ["Hematology", "Oncology"],  
+    type: "Podcast",                       
+    duration: "15:10",                     
+    progress: 10,                          
+    totalEpisodes: 2,                      
+    currentEpisode: 1,                     
+    inLibrary: false,
     thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=New+Horizons+in+CML"    
   },
   {
@@ -105,6 +153,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "16:45",
     therapeuticAreas: ["Infectious Disease", "Internal Medicine"],
+    type: "Podcast",                       
+    duration: "17:35",                     
+    progress: 0,                          
+    totalEpisodes: 2,                      
+    currentEpisode: 1,                     
+    inLibrary: false,
     thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=Leading+the+Charge+Equitable+RSV"    
   },
   {
@@ -117,6 +171,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "14:30",
     therapeuticAreas: ["Infectious Disease", "Internal Medicine"],
+    type: "Podcast",                       
+    duration: "14:20",                     
+    progress: 0,                          
+    totalEpisodes: 2,                      
+    currentEpisode: 1,                     
+    inLibrary: false,
     thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=RSV+Vaccination+Older+Adults"    
   },
   {
@@ -129,6 +189,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "28:00",
     therapeuticAreas: ["Allergy/Immunology", "Cardiology", "Pulmonary Medicine"],
+    type: "Podcast",                       
+    duration: "16:35",                     
+    progress: 0,                          
+    totalEpisodes: 2,                      
+    currentEpisode: 1,                     
+    inLibrary: false,
     thumbnail: "https://placehold.co/600x400/D1191F/FFFFFF?text=Maximizing+Outcomes+PAH"    
   },
   {
@@ -141,6 +207,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "24:15",
     therapeuticAreas: ["Allergy/Immunology", "Cardiology", "Pulmonary Medicine"],
+    type: "Podcast",                       
+    duration: "15:20",                     
+    progress: 0,                          
+    totalEpisodes: 4,                      
+    currentEpisode: 1,                     
+    inLibrary: false,
     thumbnail: "https://placehold.co/600x400/D1191F/FFFFFF?text=Advancing+Evaluation+of+PAH"    
   },
   {
@@ -153,6 +225,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "20:50",
     therapeuticAreas: ["Allergy/Immunology", "Cardiology", "Pulmonary Medicine"],
+    type: "Podcast",                       
+    duration: "14:30",                     
+    progress: 0,                          
+    totalEpisodes: 2,                      
+    currentEpisode: 1,                     
+    inLibrary: false,
     thumbnail: "https://placehold.co/600x400/D1191F/FFFFFF?text=Pulmonary+Arterial+Hypertention"    
   },
   {
@@ -165,6 +243,12 @@ export const mockActivities = [
     type: "Podcast",
     duration: "17:35",
     therapeuticAreas: ["Dermatology", "Oncology"],
+    type: "Podcast",                       
+    duration: "16:30",                     
+    progress: 0,                          
+    totalEpisodes: 3,                      
+    currentEpisode: 1,                     
+    inLibrary: false,
     thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=Advancing+Immune+Checkpoint+Inhibitor+Use+in+Resectable+Melanoma"          
   }
 ];
