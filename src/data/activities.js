@@ -5,6 +5,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "Streamlining PrEP Implementation in the Era of Long-Acting Injectables",
     releaseDate: "27-Feb-26",
+    professions: ["Physician", "Pharmacist"],
     tags: ["Infectious Disease", "Internal Medicine", "Podcast", "2025"],
     type: "Podcast",
     duration: "15:30",
@@ -23,6 +24,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "Integrating Novel Therapies While Managing Toxicity in Resectable NSCLC",
     releaseDate: "27-Feb-26",
+    professions: ["Physician"],
     tags: ["Oncology", "Podcast", "2025"],
     type: "Podcast",
     duration: "22:15",
@@ -41,6 +43,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "From Diagnosis to Surgery: Navigating Perioperative Strategies in Resectable NSCLC",
     releaseDate: "27-Feb-26",
+    professions: ["Physician", "Nurse", "Pharmacist"],
     tags: ["Oncology", "Podcast", "2025"],
     type: "Podcast",
     duration: "18:40",
@@ -59,6 +62,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "Understanding Pancreatic Cysts: From Detection to Treatment",
     releaseDate: "20-Feb-26",
+    professions: ["Physician", "Nurse", "Pharmacist"],
     tags: ["Podcast", "2025"],
     type: "Podcast",
     duration: "12:05",
@@ -77,6 +81,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "Here Today, Safe Tomorrow: Accelerating HIV Prevention With Same-Day and Rapid PrEP Initiation",
     releaseDate: "30-Jan-26",
+    professions: ["Physician", "Nurse"],
     tags: ["Infectious Disease", "Internal Medicine", "OB/GYN & Women's Health", "Public Health & Prevention", "Podcast", "2025"],
     type: "Podcast",
     duration: "25:50",
@@ -95,6 +100,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "Providing Holistic Counseling on HIV Prevention to Support Sexual Wellness",
     releaseDate: "30-Jan-26",
+    professions: ["Physician", "Nurse"],
     tags: ["Infectious Disease", "Internal Medicine", "Podcast", "2025"],
     type: "Podcast",
     duration: "19:20",
@@ -113,6 +119,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "Assess, Adapt, Advance: Multidisciplinary Strategies for Long-Term Spinal Muscular Atrophy (SMA) Management",
     releaseDate: "30-Dec-25",
+    professions: ["Physician"],
     tags: ["Neurology", "Pediatrics", "Podcast", "2025"],
     type: "Podcast",
     duration: "30:15",
@@ -131,6 +138,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "New Horizons in CML: Applying the Latest Evidence and Leading Strategies for Treatment Decision-Making Into Clinical Practice",
     releaseDate: "20-Nov-25",
+    professions: ["Physician", "Nurse"],
     tags: ["Hematology", "Oncology", "Podcast", "2025"],
     type: "Podcast",
     duration: "21:10",
@@ -149,6 +157,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "Leading the Charge for Equitable RSV Vaccination in Older Adults",
     releaseDate: "20-Nov-25",
+    professions: ["Physician", "Pharmacist"],
     tags: ["Infectious Disease", "Internal Medicine", "Podcast", "2025"],
     type: "Podcast",
     duration: "16:45",
@@ -167,6 +176,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "RSV Vaccination in Older Adults: Translating Evidence to Recommendations",
     releaseDate: "20-Nov-25",
+    professions: ["Physician","Pharmacist"],
     tags: ["Infectious Disease", "Internal Medicine", "Podcast", "2025"],
     type: "Podcast",
     duration: "14:30",
@@ -185,6 +195,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "Maximizing Outcomes in PAH: Targeted Therapies and Evidence-Based Treatment Strategies",
     releaseDate: "19-Nov-25",
+    professions: ["Physician", "Nurse"],
     tags: ["Allergy/Immunology", "Cardiology", "Pulmonary Medicine", "Podcast", "2025"],
     type: "Podcast",
     duration: "28:00",
@@ -203,6 +214,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "Advancing the Evaluation of PAH: From Diagnosis to Long-Term Monitoring",
     releaseDate: "19-Nov-25",
+    professions: ["Physician", "Nurse", "Pharmacist"],
     tags: ["Allergy/Immunology", "Cardiology", "Pulmonary Medicine", "Podcast", "2025"],
     type: "Podcast",
     duration: "24:15",
@@ -221,6 +233,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "Pulmonary Arterial Hypertension Unveiled: From Pathways to Presentation",
     releaseDate: "19-Nov-25",
+    professions: ["Physician", "Nurse", 'Physician Assistant', "Pharmacist"],
     tags: ["Allergy/Immunology", "Cardiology", "Pulmonary Medicine", "Podcast", "2025"],
     type: "Podcast",
     duration: "20:50",
@@ -239,6 +252,7 @@ export const mockActivities = [
     ceAmount: "0.25 CE",
     title: "Advancing Immune Checkpoint Inhibitor Use in Resectable Melanoma",
     releaseDate: "18-Nov-25",
+    professions: ["Physician", 'Physician Assistant', "Pharmacist"],
     tags: ["Dermatology", "Oncology", "Podcast", "2025"],
     type: "Podcast",
     duration: "17:35",
@@ -251,6 +265,27 @@ export const mockActivities = [
     inLibrary: false,
     thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=Advancing+Immune+Checkpoint+Inhibitor+Use+in+Resectable+Melanoma"          
   }
+];
+
+export const activityTypesList = [
+  'Podcast', 
+  'Webinar', 
+  'Case Study', 
+  'Article'
+];
+
+export const cmeAmountsList = [
+  '0.25 CE', 
+  '0.50 CE', 
+  '1.00 CE', 
+  '2.00 CE'
+];
+
+export const professionsList = [
+  'Physician', 
+  'Nurse', 
+  'Pharmacist', 
+  'Physician Assistant'
 ];
 
 export const therapeuticAreasList = [

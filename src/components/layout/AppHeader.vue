@@ -25,23 +25,13 @@
                 class="px-4 py-2.5 text-slate-700 hover:text-[#277FCB] hover:bg-slate-50 rounded-lg text-sm font-semibold transition-colors flex items-center justify-between group/item"
               >
                 {{ area }} Center
-                <svg class="w-4 h-4 opacity-0 group-hover/item:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <svg class="w-4 h-4 opacity-0 group-hover/item:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7-7"></path></svg>
               </router-link>
             </div>
           </div>
         </div>
 
       </nav>
-    </div>
-    
-    <div class="relative w-full max-w-md mx-4">
-      <input 
-        v-model="localQuery" 
-        @input="handleSearch"
-        type="text" 
-        placeholder="Search clinical topics, faculty, or activity codes..." 
-        class="w-full bg-white/10 border border-white/20 rounded-full py-2 px-5 text-sm focus:outline-none focus:bg-white focus:text-slate-900 transition-all placeholder:text-white/60"
-      />
     </div>
     
     <div class="flex items-center gap-4">
@@ -54,30 +44,9 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
 import { useActivities } from '../../composables/useActivities';
 
-const router = useRouter();
-const route = useRoute();
-
-// ADDED therapeuticAreas to the import here!
-const { searchQuery, setGlobalSearch, therapeuticAreas } = useActivities();
-
-const localQuery = ref(searchQuery.value);
-
-// Sync local input with global query
-watch(searchQuery, (newVal) => {
-  localQuery.value = newVal;
-});
-
-const handleSearch = () => {
-  setGlobalSearch(localQuery.value);
-  
-  if (localQuery.value && route.name !== 'search') {
-    router.push({ name: 'search' });
-  } else if (!localQuery.value && route.name === 'search') {
-    router.push({ name: 'home' });
-  }
-};
+// We only need therapeuticAreas for the dropdown menu now!
+// All the search logic has been removed since FilterBar handles it globally.
+const { therapeuticAreas } = useActivities();
 </script>

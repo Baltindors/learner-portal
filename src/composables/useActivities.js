@@ -5,34 +5,76 @@ import { mockActivities, therapeuticAreasList } from '../data/activities';
 const searchQuery = ref('');
 const activeEpisode = ref(null);
 const isPlaying = ref(false);
-
-// Moved outside the function so the saved library state persists 
-// across different components and page navigation!
 const activities = ref(mockActivities);
+
+// NEW: Global state for our active filter pills
+const activeFilters = ref([]);
 
 export function useActivities() {
   const therapeuticAreas = ref(therapeuticAreasList);
 
-  // NEW: Computed property for saved library items
   const mySavedLibrary = computed(() => {
     return activities.value.filter(item => item.inLibrary === true);
   });
 
-  const filteredList = computed(() => {
-    if (!searchQuery.value) return [];
-    const q = searchQuery.value.toLowerCase();
-    return activities.value.filter(item => 
-      item.title.toLowerCase().includes(q) || 
-      item.code.toLowerCase().includes(q) || 
-      item.tags.some(tag => tag.toLowerCase().includes(q))
-    );
+  // --- NEW: FILTER MANIPULATION METHODS ---
+  const addFilter = (category, value) => {
+    const exists = activeFilters.value.some(f => f.category === category && f.value === value);
+    if (!exists) {
+      activeFilters.value.push({ category, value });
+    }
+  };
+
+  const removeFilter = (index) => {
+    activeFilters.value.splice(index, 1);
+  };
+
+  const clearAllFilters = () => {
+    activeFilters.value = [];
+  };
+
+  // --- NEW: MASTER FILTERING LOGIC ---
+  const processedActivities = computed(() => {
+    let result = activities.value;
+
+    // 1. Text Search
+    if (searchQuery.value) {
+      const q = searchQuery.value.toLowerCase();
+      result = result.filter(item => 
+        item.title?.toLowerCase().includes(q) || 
+        item.code?.toLowerCase().includes(q) || 
+        item.tags?.some(tag => tag.toLowerCase().includes(q))
+      );
+    }
+
+    // 2. Dropdown Pill Filters
+    if (activeFilters.value.length > 0) {
+      result = result.filter(item => {
+        // An activity must match EVERY active pill to stay on the screen
+        return activeFilters.value.every(filter => {
+          if (filter.category === 'Profession') return item.professions?.includes(filter.value);
+          if (filter.category === 'Specialty') return item.specialties?.includes(filter.value) || item.tags?.includes(filter.value);
+          if (filter.category === 'Type') return item.type === filter.value;
+          // Handles if you named it cmeAmount or ceAmount in your data
+          if (filter.category === 'CME Amount' || filter.category === 'CME') return item.cmeAmount === filter.value || item.ceAmount === filter.value;
+          return true;
+        });
+      });
+    }
+
+    return result;
   });
 
+  // filteredList now just returns the master processed list
+  const filteredList = computed(() => processedActivities.value);
+
+  // groupedByArea now groups the processed list! 
+  // (If a user filters by "Nurse", rails without Nurse activities will automatically hide)
   const groupedByArea = computed(() => {
     const groups = {};
     therapeuticAreas.value.forEach(area => {
-      groups[area] = activities.value.filter(item => 
-        item.tags.includes(area)
+      groups[area] = processedActivities.value.filter(item => 
+        item.tags?.includes(area)
       );
     });
     return groups;
@@ -56,8 +98,6 @@ export function useActivities() {
 
   const relatedSeries = computed(() => {
     if (!activeEpisode.value) return [];
-    
-    // Safety check if tags array is empty or undefined
     if (!activeEpisode.value.tags || activeEpisode.value.tags.length === 0) return [];
     
     const currentTag = activeEpisode.value.tags[0];
@@ -78,11 +118,14 @@ export function useActivities() {
     therapeuticAreas,
     groupedByArea,
     setGlobalSearch,
-    
-    // NEW: Export the library so components can use it
     mySavedLibrary,
     
-    // Player specific state
+    // Exporting the new filter variables & functions
+    activeFilters,
+    addFilter,
+    removeFilter,
+    clearAllFilters,
+    
     activeEpisode,
     isPlaying,
     currentSeries,
