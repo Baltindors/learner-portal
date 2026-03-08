@@ -269,6 +269,6 @@ export const mockFaculty = [
 export const mockSegments = [
   { time: '00:00', label: 'Introduction' },
   { time: '02:45', label: 'Clinical Guidelines' },
-  { time: '07:15', label: 'Case Studies' },
+  { time: '07:16', label: 'Case Studies' },
   { time: '12:30', label: 'Closing & Credits' }
 ];
