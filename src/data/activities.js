@@ -16,7 +16,7 @@ export const mockActivities = [
     totalEpisodes: 2,                      
     currentEpisode: 1,                     
     inLibrary: false,                      
-    thumbnail: "https://placehold.co/600x400/277FCB/FFFFFF?text=PrEP+Implementation"
+    thumbnail: "https://media.primeinc.org/images/courses/54PT254.jpg"
   },
   {
     id: "10000",
@@ -35,7 +35,7 @@ export const mockActivities = [
     totalEpisodes: 5,                      
     currentEpisode: 2,                     
     inLibrary: false,
-    thumbnail: "https://placehold.co/600x400/277FCB/FFFFFF?text=Novel+Therapy"
+    thumbnail: "https://media.primeinc.org/images/courses/14WB241.jpg"
   },
   {
     id: "9999",
@@ -54,7 +54,7 @@ export const mockActivities = [
     totalEpisodes: 2,                      
     currentEpisode: 1,                     
     inLibrary: false,
-    thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=Diagnosis+to+Surgery"
+    thumbnail: "https://media.primeinc.org/images/courses/13WB2415.jpg"
   },
   {
     id: "9740",
@@ -73,7 +73,7 @@ export const mockActivities = [
     totalEpisodes: 3,                      
     currentEpisode: 1,                     
     inLibrary: false,
-    thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=Pancreatic+Cysts"
+    thumbnail: "https://media.primeinc.org/images/courses/29WB254.jpg"
   },
   {
     id: "10104",
@@ -92,7 +92,7 @@ export const mockActivities = [
     totalEpisodes: 5,                      
     currentEpisode: 1,                     
     inLibrary: false,
-    thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=Accelerating+HIV+Prevention"    
+    thumbnail: "https://media.primeinc.org/images/courses/54WB2419.jpg"    
   },
   {
     id: "10005",
@@ -111,7 +111,7 @@ export const mockActivities = [
     totalEpisodes: 3,                      
     currentEpisode: 1,                     
     inLibrary: false,
-    thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=Providing+Holistic+Counseling"    
+    thumbnail: "https://media.primeinc.org/images/courses/54BQ255.jpg"    
   },
   {
     id: "9990",
@@ -130,7 +130,7 @@ export const mockActivities = [
     totalEpisodes: 2,                      
     currentEpisode: 1,                     
     inLibrary: false,
-    thumbnail: "https://placehold.co/600x400/277FCB/FFFFFF?text=Multidisciplinary+Strategies+Long-Term"    
+    thumbnail: "https://media.primeinc.org/images/courses/44PC251.jpg"    
   },
   {
     id: "9797",
@@ -149,7 +149,7 @@ export const mockActivities = [
     totalEpisodes: 2,                      
     currentEpisode: 1,                     
     inLibrary: false,
-    thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=New+Horizons+in+CML"    
+    thumbnail: "https://media.primeinc.org/images/courses/27WB252.jpg"    
   },
   {
     id: "9192",
@@ -168,7 +168,7 @@ export const mockActivities = [
     totalEpisodes: 2,                      
     currentEpisode: 1,                     
     inLibrary: false,
-    thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=Leading+the+Charge+Equitable+RSV"    
+    thumbnail: "https://media.primeinc.org/images/courses/23PC254.jpg"    
   },
   {
     id: "9191",
@@ -187,7 +187,7 @@ export const mockActivities = [
     totalEpisodes: 2,                      
     currentEpisode: 1,                     
     inLibrary: false,
-    thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=RSV+Vaccination+Older+Adults"    
+    thumbnail: "https://media.primeinc.org/images/courses/54PC253.jpg"    
   },
   {
     id: "10060",
@@ -206,7 +206,7 @@ export const mockActivities = [
     totalEpisodes: 2,                      
     currentEpisode: 1,                     
     inLibrary: false,
-    thumbnail: "https://placehold.co/600x400/D1191F/FFFFFF?text=Maximizing+Outcomes+PAH"    
+    thumbnail: "https://media.primeinc.org/images/courses/72WB252.jpg"    
   },
   {
     id: "9309",
@@ -225,7 +225,7 @@ export const mockActivities = [
     totalEpisodes: 4,                      
     currentEpisode: 1,                     
     inLibrary: false,
-    thumbnail: "https://placehold.co/600x400/D1191F/FFFFFF?text=Advancing+Evaluation+of+PAH"    
+    thumbnail: "https://media.primeinc.org/images/courses/72PC256.jpg"    
   },
   {
     id: "9301",
@@ -244,7 +244,7 @@ export const mockActivities = [
     totalEpisodes: 2,                      
     currentEpisode: 1,                     
     inLibrary: false,
-    thumbnail: "https://placehold.co/600x400/D1191F/FFFFFF?text=Pulmonary+Arterial+Hypertention"    
+    thumbnail: "https://media.primeinc.org/images/courses/15PC253.jpg"    
   },
   {
     id: "9473",
@@ -263,7 +263,7 @@ export const mockActivities = [
     totalEpisodes: 3,                      
     currentEpisode: 1,                     
     inLibrary: false,
-    thumbnail: "https://placehold.co/600x400/28CEE0/FFFFFF?text=Advancing+Immune+Checkpoint+Inhibitor+Use+in+Resectable+Melanoma"          
+    thumbnail: "https://media.primeinc.org/images/courses/17WB254.jpg"          
   }
 ];
 
