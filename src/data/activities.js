@@ -19,6 +19,25 @@ export const mockActivities = [
     thumbnail: "https://media.primeinc.org/images/courses/54PT254.jpg"
   },
   {
+    id: "9990",
+    code: "24PC2510",
+    ceAmount: "0.25 CE",
+    title: "Assess, Adapt, Advance: Multidisciplinary Strategies for Long-Term Spinal Muscular Atrophy (SMA) Management",
+    releaseDate: "04-Mar-26",
+    professions: ["Physician"],
+    tags: ["Neurology", "Pediatrics", "Podcast", "2025"],
+    type: "Podcast",
+    duration: "30:15",
+    therapeuticAreas: ["Neurology", "Pediatrics"],
+    type: "Podcast",                       
+    duration: "14:50",                     
+    progress: 0,                          
+    totalEpisodes: 2,                      
+    currentEpisode: 1,                     
+    inLibrary: false,
+    thumbnail: "https://media.primeinc.org/images/courses/44PC251.jpg"    
+  },
+  {
     id: "10000",
     code: "72PC255",
     ceAmount: "0.25 CE",
@@ -113,25 +132,7 @@ export const mockActivities = [
     inLibrary: false,
     thumbnail: "https://media.primeinc.org/images/courses/54BQ255.jpg"    
   },
-  {
-    id: "9990",
-    code: "24PC2510",
-    ceAmount: "0.25 CE",
-    title: "Assess, Adapt, Advance: Multidisciplinary Strategies for Long-Term Spinal Muscular Atrophy (SMA) Management",
-    releaseDate: "30-Dec-25",
-    professions: ["Physician"],
-    tags: ["Neurology", "Pediatrics", "Podcast", "2025"],
-    type: "Podcast",
-    duration: "30:15",
-    therapeuticAreas: ["Neurology", "Pediatrics"],
-    type: "Podcast",                       
-    duration: "14:50",                     
-    progress: 0,                          
-    totalEpisodes: 2,                      
-    currentEpisode: 1,                     
-    inLibrary: false,
-    thumbnail: "https://media.primeinc.org/images/courses/44PC251.jpg"    
-  },
+ 
   {
     id: "9797",
     code: "24PC256",

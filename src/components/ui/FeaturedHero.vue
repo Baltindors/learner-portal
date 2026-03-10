@@ -16,7 +16,7 @@
           alt="" 
           class="absolute inset-0 w-full h-full object-cover"
         />
-        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/40 to-transparent"></div>
       </div>
       <div v-else class="absolute inset-0 w-full h-full bg-slate-50"></div>
       
@@ -37,7 +37,8 @@
           <span>{{ activity.releaseDate }}</span>
         </div>
 
-        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-[#0F172A] mb-6 leading-none line-clamp-3 drop-shadow-sm">
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-[#0F172A] mb-6 leading-none line-clamp-3 drop-shadow-sm"
+        style="font-family: 'Inter', sans-serif;">
           {{ activity.title }}
         </h2>
 
