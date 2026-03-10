@@ -33,7 +33,6 @@ export function useActivities() {
     activeFilters.value = [];
   };
 
-  // --- NEW: MASTER FILTERING LOGIC ---
   const processedActivities = computed(() => {
     let result = activities.value;
 
@@ -47,17 +46,28 @@ export function useActivities() {
       );
     }
 
-    // 2. Dropdown Pill Filters
     if (activeFilters.value.length > 0) {
+
+      const filtersByCategory = activeFilters.value.reduce((groups, filter) => {
+        if (!groups[filter.category]) groups[filter.category] = [];
+        groups[filter.category].push(filter.value);
+        return groups;
+      }, {});
+
+      // Step B: Filter the activities
       result = result.filter(item => {
-        // An activity must match EVERY active pill to stay on the screen
-        return activeFilters.value.every(filter => {
-          if (filter.category === 'Profession') return item.professions?.includes(filter.value);
-          if (filter.category === 'Specialty') return item.specialties?.includes(filter.value) || item.tags?.includes(filter.value);
-          if (filter.category === 'Type') return item.type === filter.value;
-          // Handles if you named it cmeAmount or ceAmount in your data
-          if (filter.category === 'CME Amount' || filter.category === 'CME') return item.cmeAmount === filter.value || item.ceAmount === filter.value;
-          return true;
+        // An activity must pass EVERY category that has an active filter (AND between categories)
+        return Object.entries(filtersByCategory).every(([category, selectedValues]) => {
+          
+          // An activity must match AT LEAST ONE value inside this category (OR within category)
+          return selectedValues.some(value => {
+            if (category === 'Profession') return item.professions?.includes(value);
+            if (category === 'Specialty') return item.specialties?.includes(value) || item.tags?.includes(value);
+            if (category === 'Type') return item.type === value;
+            if (category === 'CME Amount' || category === 'CME') return item.cmeAmount === value || item.ceAmount === value;
+            return false;
+          });
+
         });
       });
     }

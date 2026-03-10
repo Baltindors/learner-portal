@@ -17,7 +17,16 @@
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </button>
         <div class="absolute top-full left-0 mt-1 w-48 bg-white border border-slate-200 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 py-1">
-          <button v-for="prof in filterOptions.professions" :key="prof" @click="addFilter('Profession', prof)" class="w-full text-left px-4 py-2 text-sm hover:bg-slate-50 text-slate-700">
+          <button 
+            v-for="prof in filterOptions.professions" 
+            :key="prof" 
+            @click="handleFilterClick('Profession', prof)" 
+            class="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center transition-colors"
+            :class="isFilterActive('Profession', prof) ? 'text-[#277FCB] font-bold bg-[#277FCB]/5' : 'text-slate-700'"
+          >
+            <span class="w-5 flex-shrink-0 flex items-center justify-start mr-1">
+              <svg v-if="isFilterActive('Profession', prof)" class="w-4 h-4 text-[#277FCB]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </span>
             {{ prof }}
           </button>
         </div>
@@ -29,7 +38,16 @@
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </button>
         <div class="absolute top-full left-0 mt-1 w-48 bg-white border border-slate-200 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 py-1">
-          <button v-for="spec in filterOptions.specialties" :key="spec" @click="addFilter('Specialty', spec)" class="w-full text-left px-4 py-2 text-sm hover:bg-slate-50 text-slate-700">
+          <button 
+            v-for="spec in filterOptions.specialties" 
+            :key="spec" 
+            @click="handleFilterClick('Specialty', spec)" 
+            class="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center transition-colors"
+            :class="isFilterActive('Specialty', spec) ? 'text-[#277FCB] font-bold bg-[#277FCB]/5' : 'text-slate-700'"
+          >
+            <span class="w-5 flex-shrink-0 flex items-center justify-start mr-1">
+              <svg v-if="isFilterActive('Specialty', spec)" class="w-4 h-4 text-[#277FCB]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </span>
             {{ spec }}
           </button>
         </div>
@@ -41,7 +59,16 @@
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </button>
         <div class="absolute top-full left-0 mt-1 w-48 bg-white border border-slate-200 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 py-1">
-          <button v-for="type in filterOptions.types" :key="type" @click="addFilter('Type', type)" class="w-full text-left px-4 py-2 text-sm hover:bg-slate-50 text-slate-700">
+          <button 
+            v-for="type in filterOptions.types" 
+            :key="type" 
+            @click="handleFilterClick('Type', type)" 
+            class="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center transition-colors"
+            :class="isFilterActive('Type', type) ? 'text-[#277FCB] font-bold bg-[#277FCB]/5' : 'text-slate-700'"
+          >
+            <span class="w-5 flex-shrink-0 flex items-center justify-start mr-1">
+              <svg v-if="isFilterActive('Type', type)" class="w-4 h-4 text-[#277FCB]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </span>
             {{ type }}
           </button>
         </div>
@@ -53,7 +80,16 @@
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </button>
         <div class="absolute top-full right-0 mt-1 w-32 bg-white border border-slate-200 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 py-1">
-          <button v-for="amount in filterOptions.cmeAmounts" :key="amount" @click="addFilter('CME', amount)" class="w-full text-left px-4 py-2 text-sm hover:bg-slate-50 text-slate-700">
+          <button 
+            v-for="amount in filterOptions.cmeAmounts" 
+            :key="amount" 
+            @click="handleFilterClick('CME', amount)" 
+            class="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center transition-colors"
+            :class="isFilterActive('CME', amount) ? 'text-[#277FCB] font-bold bg-[#277FCB]/5' : 'text-slate-700'"
+          >
+            <span class="w-5 flex-shrink-0 flex items-center justify-start mr-1">
+              <svg v-if="isFilterActive('CME', amount)" class="w-4 h-4 text-[#277FCB]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </span>
             {{ amount }}
           </button>
         </div>
@@ -83,7 +119,6 @@
 <script setup>
 import { useActivities } from '../../composables/useActivities';
 
-// Bring everything in from the global state!
 const { 
   searchQuery, 
   activeFilters, 
@@ -91,6 +126,21 @@ const {
   removeFilter, 
   clearAllFilters 
 } = useActivities();
+
+// Helper to check if a specific filter is currently active
+const isFilterActive = (category, value) => {
+  return activeFilters.value.some(f => f.category === category && f.value === value);
+};
+
+// NEW: Toggle logic! If it's active, remove it. If it isn't, add it.
+const handleFilterClick = (category, value) => {
+  const index = activeFilters.value.findIndex(f => f.category === category && f.value === value);
+  if (index > -1) {
+    removeFilter(index); // It's already there, so uncheck it!
+  } else {
+    addFilter(category, value); // It's not there, so add it!
+  }
+};
 
 // List of options for the dropdown menus
 const filterOptions = {
