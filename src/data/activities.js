@@ -4,7 +4,7 @@ export const mockActivities = [
     code: "54PC255",
     ceAmount: "0.25 CE",
     title: "Streamlining PrEP Implementation in the Era of Long-Acting Injectables",
-    releaseDate: "27-Feb-26",
+    releaseDate: "01-Mar-26",
     professions: ["Physician", "Pharmacist"],
     tags: ["Infectious Disease", "Internal Medicine", "Podcast", "2025"],
     type: "Podcast",
