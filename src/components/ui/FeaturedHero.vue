@@ -10,13 +10,13 @@
       class="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out"
       :class="currentIndex === index ? 'opacity-100 z-10' : 'opacity-0 z-0'"
     >
-      <div v-if="activity.thumbnail" class="absolute right-0 top-0 w-3/4 h-full">
+      <div v-if="activity.thumbnail" class="absolute right-0 top-0 w-2/3 h-full">
         <img 
           :src="activity.thumbnail" 
           alt="" 
           class="absolute inset-0 w-full h-full object-cover"
         />
-        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/40 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent"></div>
       </div>
       <div v-else class="absolute inset-0 w-full h-full bg-slate-50"></div>
       
