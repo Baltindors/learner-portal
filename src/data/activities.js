@@ -35,7 +35,7 @@ export const mockActivities = [
   },
   {
     id: "10000",
-    code: "72PC255",
+    code: "70PC255",
     ceAmount: "0.25 CE",
     title: "Integrating Novel Therapies While Managing Toxicity in Resectable NSCLC",
     releaseDate: "27-Feb-26",
@@ -52,7 +52,7 @@ export const mockActivities = [
   },
   {
     id: "9999",
-    code: "72PC254",
+    code: "70PC254",
     ceAmount: "0.25 CE",
     title: "From Diagnosis to Surgery: Navigating Perioperative Strategies in Resectable NSCLC",
     releaseDate: "27-Feb-26",
@@ -172,7 +172,7 @@ export const mockActivities = [
   },
   {
     id: "10060",
-    code: "72PC256",
+    code: "71PC256",
     ceAmount: "0.25 CE",
     title: "Maximizing Outcomes in PAH: Targeted Therapies and Evidence-Based Treatment Strategies",
     releaseDate: "19-Nov-25",
@@ -189,7 +189,7 @@ export const mockActivities = [
   },
   {
     id: "9309",
-    code: "72PC252",
+    code: "71PC252",
     ceAmount: "0.25 CE",
     title: "Advancing the Evaluation of PAH: From Diagnosis to Long-Term Monitoring",
     releaseDate: "19-Nov-25",
