@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <div v-if="activeTab === 'transcript'" class="space-y-4 text-xs text-slate-400 leading-relaxed max-h-[500px] overflow-y-auto pr-2 no-scrollbar">
+      <div v-if="activeTab === 'transcript'" class="space-y-4 text-xs text-slate-400 leading-relaxed flex-1 overflow-y-auto pr-2 no-scrollbar">
         <p v-for="i in 10" :key="i" :class="{'text-white font-medium': i === 3}">
           <span class="text-[10px] font-mono mr-2 text-slate-500">0{{i}}:24</span>
           In this clinical scenario, we observe a significant deviation in the standard of care protocols when patients present with comorbid hypertension. This session aims to bridge that gap by outlining evidence-based strategies...

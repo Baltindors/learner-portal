@@ -71,7 +71,7 @@
     </div>
     
     <!-- END OF SERIES SCREEN -->
-    <div v-if="isSeriesEnded" class="absolute inset-0 bg-slate-900 z-50 flex flex-col items-center justify-center p-8 text-center transition-opacity duration-700">
+<div v-if="isSeriesEnded" class="absolute inset-0 bg-slate-900 z-50 flex flex-col items-center justify-center p-8 text-center transition-opacity duration-700">
       <h2 class="text-3xl font-black text-white mb-2">Series Complete</h2>
       <p class="text-slate-400 mb-10 text-lg">Up Next / You May Also Like</p>
       
@@ -79,8 +79,14 @@
         <div v-for="rel in relatedSeries" :key="rel.id" 
              @click="loadActivityAndPlay(rel)"
              class="w-64 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-5 cursor-pointer text-left transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-[#277FCB]/20">
-          <div class="h-32 bg-gradient-to-br from-slate-700 to-slate-800 rounded-lg mb-4 flex items-center justify-center">
-            <svg class="w-8 h-8 text-white/20" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+          <div class="h-32 bg-gradient-to-br from-slate-700 to-slate-800 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+            <img 
+              v-if="rel.thumbnail" 
+              :src="rel.thumbnail" 
+              class="w-full h-full object-cover"
+              alt=""
+            />
+            <svg v-else class="w-8 h-8 text-white/20" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
           </div>
           <div class="text-[10px] text-[#277FCB] font-bold mb-1 line-clamp-1 uppercase tracking-wider">{{rel.tags[0]}}</div>
           <div class="text-sm font-semibold text-white line-clamp-2 leading-tight">{{rel.title}}</div>
