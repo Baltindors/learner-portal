@@ -6,14 +6,14 @@
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
         </svg>
-        Back to Portal
+        Back to Home
       </button>
       <div class="text-center flex-1 hidden md:block">
         <div class="text-xs uppercase tracking-widest text-slate-400 mb-1">Now Playing • Part {{ getEpisodeOrder(activeEpisode.Code) }}</div>
         <div class="text-sm font-bold text-white max-w-md mx-auto truncate">{{ activeEpisode.Title }}</div>
       </div>
       <div class="flex gap-4">
-        <button class="text-sm opacity-70">Credit Inquiry</button>
+        <button class="text-sm opacity-70">Claim Credit</button>
         <button class="text-sm opacity-70">Support</button>
       </div>
     </div>

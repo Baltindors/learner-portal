@@ -10,6 +10,14 @@ const activities = ref(mockActivities);
 // NEW: Global state for our active filter pills
 const activeFilters = ref([]);
 
+// NEW: Player playback and countdown state
+const playbackProgress = ref(0); // 0 to 100
+const isCountingDown = ref(false);
+const isSeriesEnded = ref(false);
+const countdownValue = ref(5);
+let playbackTimer = null;
+let countdownTimer = null;
+
 export function useActivities() {
   const therapeuticAreas = ref(therapeuticAreasList);
 
@@ -121,6 +129,83 @@ export function useActivities() {
     return activities.value.find(item => item.id === id);
   };
 
+  // --- NEW: PLAYBACK AND AUTO-ADVANCE LOGIC ---
+  const stopTimers = () => {
+    if (playbackTimer) clearInterval(playbackTimer);
+    if (countdownTimer) clearInterval(countdownTimer);
+    playbackTimer = null;
+    countdownTimer = null;
+  };
+
+  const playNextEpisode = () => {
+    // Determine next episode
+    const currentIndex = currentSeries.value.findIndex(ep => ep.id === activeEpisode.value?.id);
+    if (currentIndex >= 0 && currentIndex < currentSeries.value.length - 1) {
+      activeEpisode.value = currentSeries.value[currentIndex + 1];
+      startSimulatedPlayback();
+    } else {
+      // End of series
+      stopTimers();
+      activeEpisode.value = null; // We can use null or a flag to show the end screen
+      isPlaying.value = false;
+    }
+  };
+
+  const startCountdown = () => {
+    stopTimers();
+    isCountingDown.value = true;
+    isSeriesEnded.value = false;
+    countdownValue.value = 5;
+    
+    countdownTimer = setInterval(() => {
+      countdownValue.value--;
+      if (countdownValue.value <= 0) {
+        clearInterval(countdownTimer);
+        isCountingDown.value = false;
+        playNextEpisode();
+      }
+    }, 1000);
+  };
+
+  const startSimulatedPlayback = () => {
+    stopTimers();
+    isPlaying.value = true;
+    isCountingDown.value = false;
+    isSeriesEnded.value = false;
+    playbackProgress.value = 0;
+    
+    // Simulate 10-second playback (updates 100 times, every 100ms)
+    playbackTimer = setInterval(() => {
+      if (isPlaying.value) {
+        playbackProgress.value += 1;
+        if (playbackProgress.value >= 100) {
+          clearInterval(playbackTimer);
+          playbackProgress.value = 100;
+          isPlaying.value = false;
+          
+          // Check if this was the last episode
+          const currentIndex = currentSeries.value.findIndex(ep => ep.id === activeEpisode.value?.id);
+          if (currentIndex >= 0 && currentIndex < currentSeries.value.length - 1) {
+            startCountdown();
+          } else {
+            // Reached end of series immediately show end screen
+            stopTimers();
+            isCountingDown.value = false;
+            isSeriesEnded.value = true;
+          }
+        }
+      }
+    }, 100);
+  };
+
+  const loadActivityAndPlay = (activity) => {
+    stopTimers();
+    activeEpisode.value = activity;
+    isSeriesEnded.value = false;
+    isCountingDown.value = false;
+    startSimulatedPlayback();
+  };
+
   return {
     activities,
     searchQuery,
@@ -141,6 +226,15 @@ export function useActivities() {
     currentSeries,
     relatedSeries,
     getEpisodeOrder,
-    getActivityById
+    getActivityById,
+
+    // New playback features
+    playbackProgress,
+    isCountingDown,
+    isSeriesEnded,
+    countdownValue,
+    startSimulatedPlayback,
+    stopTimers,
+    loadActivityAndPlay
   };
 }

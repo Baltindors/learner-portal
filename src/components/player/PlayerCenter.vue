@@ -9,7 +9,7 @@
           <div class="z-10 p-10">
             <div class="text-white text-xl font-bold mb-2">PRIME</div>
             <div class="h-1 w-12 bg-white/40 mb-4 mx-auto rounded"></div>
-            <div v-if="activeEpisode" class="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em] leading-tight">{{activeEpisode.code}}</div>
+            <div v-if="activeEpisode" class="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em] leading-tight">PODCAST</div>
           </div>
           
           <!-- Visualizer Bars -->
@@ -34,12 +34,12 @@
       <div class="w-full max-w-lg mx-auto bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-white/10 shadow-2xl">
         <!-- Progress Bar -->
         <div class="mb-6">
-          <div class="flex justify-between text-[10px] text-slate-400 mb-2">
-            <span>04:12</span>
-            <span>{{ activeEpisode?.duration || '00:00' }}</span>
+          <div class="flex justify-between text-[10px] text-slate-400 mb-2 tabular-nums">
+            <span>00:{{ Math.floor((playbackProgress / 100) * 10).toString().padStart(2, '0') }}</span>
+            <span>00:10</span>
           </div>
           <div class="h-1.5 w-full bg-white/10 rounded-full relative cursor-pointer overflow-hidden group">
-            <div class="absolute top-0 left-0 h-full bg-[#277FCB] rounded-full transition-all group-hover:bg-[#3498db]" style="width: 28%"></div>
+            <div class="absolute top-0 left-0 h-full bg-[#277FCB] rounded-full transition-all group-hover:bg-[#3498db]" :style="{ width: `${playbackProgress}%` }"></div>
           </div>
         </div>
 
@@ -62,6 +62,35 @@
         </div>
       </div>
     </div>
+
+    <!-- COUNTDOWN OVERLAY -->
+    <div v-if="isCountingDown" class="absolute inset-0 bg-black/80 backdrop-blur-md z-40 flex flex-col items-center justify-center">
+      <div class="text-[10px] font-bold text-white/60 uppercase tracking-[0.3em] mb-4">Next Episode Auto-Play In</div>
+      <div class="text-8xl font-black text-white mb-8 tabular-nums">{{countdownValue}}</div>
+      <div class="w-24 h-24 rounded-full border-4 border-[#277FCB]/30 border-t-[#277FCB] animate-spin"></div>
+    </div>
+    
+    <!-- END OF SERIES SCREEN -->
+    <div v-if="isSeriesEnded" class="absolute inset-0 bg-slate-900 z-50 flex flex-col items-center justify-center p-8 text-center transition-opacity duration-700">
+      <h2 class="text-3xl font-black text-white mb-2">Series Complete</h2>
+      <p class="text-slate-400 mb-10 text-lg">Up Next / You May Also Like</p>
+      
+      <div class="flex flex-wrap justify-center gap-6 w-full max-w-4xl">
+        <div v-for="rel in relatedSeries" :key="rel.id" 
+             @click="loadActivityAndPlay(rel)"
+             class="w-64 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-5 cursor-pointer text-left transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-[#277FCB]/20">
+          <div class="h-32 bg-gradient-to-br from-slate-700 to-slate-800 rounded-lg mb-4 flex items-center justify-center">
+            <svg class="w-8 h-8 text-white/20" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+          </div>
+          <div class="text-[10px] text-[#277FCB] font-bold mb-1 line-clamp-1 uppercase tracking-wider">{{rel.tags[0]}}</div>
+          <div class="text-sm font-semibold text-white line-clamp-2 leading-tight">{{rel.title}}</div>
+        </div>
+      </div>
+      
+      <button @click="stopTimers(); activeEpisode = null" class="mt-10 px-8 py-3 rounded-full border border-white/20 text-sm font-bold opacity-80 hover:opacity-100 hover:bg-white/5 transition-colors">
+        Browse Library
+      </button>
+    </div>
   </div>
 </template>
 
@@ -69,9 +98,18 @@
 import { useActivities } from '../../composables/useActivities';
 import { mockSegments } from '../../data/activities';
 
-const { activeEpisode, isPlaying } = useActivities();
+const { 
+  activeEpisode, isPlaying, playbackProgress, 
+  isCountingDown, countdownValue, isSeriesEnded,
+  relatedSeries, loadActivityAndPlay, stopTimers, startSimulatedPlayback 
+} = useActivities();
 
 const togglePlay = () => {
-  isPlaying.value = !isPlaying.value;
+  if (isPlaying.value) {
+    stopTimers();
+    isPlaying.value = false;
+  } else {
+    startSimulatedPlayback();
+  }
 };
 </script>

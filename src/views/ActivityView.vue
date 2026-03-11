@@ -4,14 +4,14 @@
     <div class="p-4 flex justify-between items-center border-b border-white/10 shrink-0">
       <button @click="goBack" class="flex items-center gap-2 text-sm opacity-70 hover:opacity-100 transition-opacity">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-        Back to Portal
+        Back to Home
       </button>
       <div class="text-center flex-1 hidden md:block">
         <div class="text-xs uppercase tracking-widest text-slate-400 mb-1">Now Playing • Part {{getEpisodeOrder(activeEpisode.code)}}</div>
         <div class="text-sm font-bold text-white max-w-md mx-auto truncate">{{activeEpisode.title}}</div>
       </div>
       <div class="flex gap-4">
-        <button class="text-sm opacity-70">Credit Inquiry</button>
+        <button class="text-sm opacity-70">Claim Credit</button>
         <button class="text-sm opacity-70">Support</button>
       </div>
     </div>
@@ -47,13 +47,12 @@ import PlayerRightPanel from '../components/player/PlayerRightPanel.vue';
 
 const route = useRoute();
 const router = useRouter();
-const { activeEpisode, getActivityById, isPlaying, getEpisodeOrder } = useActivities();
+const { activeEpisode, getActivityById, isPlaying, getEpisodeOrder, loadActivityAndPlay, stopTimers } = useActivities();
 
 const loadActivity = (id) => {
   const activity = getActivityById(id);
   if (activity) {
-    activeEpisode.value = activity;
-    isPlaying.value = true;
+    loadActivityAndPlay(activity);
   } else {
     // Navigate home if activity not found
     router.push('/');
@@ -74,6 +73,7 @@ watch(() => route.params.id, (newId) => {
 const goBack = () => {
   activeEpisode.value = null;
   isPlaying.value = false;
+  stopTimers();
   router.push('/');
 };
 </script>
