@@ -231,7 +231,7 @@ export const mockActivities = [
     tags: ["Dermatology", "Oncology", "Podcast", "2025"],
     type: "Podcast",
     duration: "17:35",
-    therapeuticAreas: ["Dermatology", "Oncology"],                     
+    therapeuticAreas: ["Oncology", "Dermatology"],                     
     progress: 0,                          
     totalEpisodes: 3,                      
     currentEpisode: 1,                     
