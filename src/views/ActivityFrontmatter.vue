@@ -31,18 +31,41 @@
     <div class="flex-grow md:ml-20">
       
       <!-- Banner / Header Area -->
-      <div class="bg-gradient-to-r from-[#065184] via-[#065184]/90 to-white pt-10 pb-20 relative overflow-hidden flex">
-        <!-- Optional background image can go here based on data thumbnail using absolute positioning -->
-        <img v-if="activity.thumbnail" :src="activity.thumbnail" class="absolute right-0 top-0 h-full w-1/2 object-cover object-right opacity-80 mix-blend-multiply" style="mask-image: linear-gradient(to right, transparent, black 100%); -webkit-mask-image: linear-gradient(to right, transparent, black 100%);" alt="" />
-        <div class="container mx-auto max-w-7xl px-8 relative z-10 hidden md:block mt-8 flex-grow">
-          <h1 class="text-3xl font-extrabold uppercase tracking-tight max-w-4xl text-slate-800 bg-white/90 p-6 inline-block mb-4 leading-tight shadow-sm">{{ activity.title }}</h1>
-          <div class="flex gap-4">
-            <span class="bg-white text-slate-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm" v-if="activity.ceAmount">{{ activity.ceAmount }}</span>
-            <span class="bg-white text-slate-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm" v-if="activity.releaseDate">Released: {{ activity.releaseDate }}</span>
-            <span class="bg-white text-slate-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm" v-if="activity.type">{{ activity.type }}</span>
-          </div>
+<div class="container mx-auto max-w-7xl px-6 lg:px-8 py-5">
+        <div class="relative w-full min-h-[260px] md:h-[280px] overflow-hidden bg-white border border-slate-200 flex rounded-2xl shadow-sm mb-8">
+        
+        <div v-if="activity.thumbnail" class="absolute inset-0 md:inset-auto md:right-0 md:top-0 w-full md:w-3/5 h-full">
+          <img :src="activity.thumbnail" class="absolute inset-0 w-full h-full object-cover object-center md:object-right" />
+          <div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/20 md:hidden"></div>
+          <div class="hidden md:block absolute inset-0 bg-gradient-to-r from-white from-0% via-white/40 via-30% to-transparent to-50%"></div>
+        </div>
+
+        <div class="relative z-10 flex flex-col justify-center py-6 px-10">
+          <div class="max-w-xl">
+            <h1 class="font-['Inter'] text-2xl md:text-3xl font-extrabold tracking-tight text-[#0F172A] mb-6 leading-tight">
+              {{ activity.title }}
+            </h1>
+            <div class="flex flex-wrap gap-3">
+              <span class="bg-[#065184] text-white text-[10px] uppercase font-bold tracking-widest px-2.5 py-1.5 rounded shadow-sm">
+                  {{ activity.ceAmount }}
+              </span>
+              <span class="bg-[#065184] text-white text-[10px] uppercase font-bold tracking-widest px-2.5 py-1.5 rounded shadow-sm">
+                  Released: {{ activity.releaseDate }}
+              </span>
+              <span class="bg-[#065184] text-white text-[10px] uppercase font-bold tracking-widest px-2.5 py-1.5 rounded shadow-sm">
+                  {{ activity.type }}
+              </span>
+            </div>
+
         </div>
       </div>
+    </div>
+
+  <div class="container mx-auto max-w-7xl px-6 lg:px-8 relative z-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      </div>
+  </div>
+</div>
 
       <!-- Centered Content -->
       <div class="container mx-auto max-w-7xl px-6 lg:px-8 py-10 -mt-16 relative z-20">
@@ -179,64 +202,70 @@
                   </ul>
                 </div>
               </div>
+<div id="goals" class="border border-slate-200 rounded-lg overflow-hidden">
+  <button @click="toggleSection('goals')" class="w-full flex items-center justify-between p-5 bg-white hover:bg-slate-50 transition-colors">
+    <div class="flex items-center gap-4">
+      <span class="w-8 h-8 rounded-full bg-[#EAF2F8] text-[#277FCB] font-bold text-xs flex items-center justify-center">04</span>
+      <h2 class="text-sm font-bold uppercase tracking-widest text-slate-800">Learning Objectives</h2>
+    </div>
+    <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="{'rotate-180': openSections.goals}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+  <div v-show="openSections.goals" class="p-6 pt-4 text-sm text-slate-600 border-t border-slate-100 bg-white">
+    <p class="mb-4">Upon completion of this activity, participants should be able to:</p>
+    <ul class="list-disc list-outside ml-4 space-y-3">
+      <li>Recognize the clinical presentations, epidemiology, and risk factors associated with pancreatic cancer.</li>
+      <li>Evaluate current strategies for early detection and surveillance in high-risk populations.</li>
+      <li>Describe how multidisciplinary care models contribute to improved patient outcomes.</li>
+    </ul>
+  </div>
+</div>
 
             </div>
           </div>
 
           <!-- Right Column (Snapshot Card) -->
-          <div class="lg:col-span-4">
-            <div class="sticky top-6 rounded-lg overflow-hidden shadow-lg border border-slate-200 bg-white flex flex-col">
-              
-              <!-- Snapshot Header -->
-              <div class="bg-[#065184] text-white p-4">
-                <h3 class="font-bold text-sm tracking-widest uppercase">Activity Snapshot</h3>
-              </div>
-              
-              <div class="p-6 flex-grow flex flex-col">
-                <!-- Data Grid -->
-                <div class="grid grid-cols-[100px_1fr] gap-y-3 gap-x-4 text-sm mb-6">
-                  <div class="font-semibold text-slate-700">Activity Type:</div>
-                  <div class="text-slate-600">{{ activity.type }}</div>
-                  
-                  <div class="font-semibold text-slate-700">Release Date:</div>
-                  <div class="text-slate-600">{{ activity.releaseDate }}</div>
-                  
-                  <div class="font-semibold text-slate-700">Expiration Date:</div>
-                  <div class="text-slate-600">Feb 26, 2027</div>
+<div class="lg:col-span-4">
+  <div class="sticky top-24"> 
+    <div class="rounded-lg overflow-hidden shadow-lg border border-slate-200 bg-white flex flex-col">
+      
+      <div class="bg-[#065184] text-white p-4">
+        <h3 class="font-bold text-sm tracking-widest uppercase">Activity Snapshot</h3>
+      </div>
+      
+      <div class="p-6">
+        <div class="grid grid-cols-[110px_1fr] gap-y-4 gap-x-4 text-sm mb-8">
+          <div class="font-semibold text-slate-700">Activity Type:</div>
+          <div class="text-slate-600">{{ activity.type }}</div>
+          
+          <div class="font-semibold text-slate-700">Release Date:</div>
+          <div class="text-slate-600">{{ activity.releaseDate }}</div>
+          
+          <div class="font-semibold text-slate-700">Expiration Date:</div>
+          <div class="text-slate-600">Feb 26, 2027</div>
 
-                  <div class="font-semibold text-slate-700">Activity Price:</div>
-                  <div class="text-slate-600">Free</div>
-                </div>
+          <div class="font-semibold text-slate-700">Activity Price:</div>
+          <div class="text-slate-600 text-[#03C84F] font-bold">Free</div>
 
-                <!-- CE Credits list -->
-                <div class="border-t border-slate-200 pt-5 mb-6">
-                  <h4 class="font-bold text-sm text-slate-800 mb-3">Continuing Education Credits:</h4>
-                  <ul class="space-y-2 text-xs text-slate-600">
-                    <li class="flex gap-2 items-start"><span class="text-slate-300">&bull;</span> {{ activity.ceAmount }} CME/CE for <strong>Physicians</strong> (ACCME)</li>
-                    <li class="flex gap-2 items-start"><span class="text-slate-300">&bull;</span> {{ activity.ceAmount }} CME/CE for <strong>Physician Associates</strong> (AAPA)</li>
-                    <li class="flex gap-2 items-start"><span class="text-slate-300">&bull;</span> {{ activity.ceAmount }} CME/CE for <strong>Nurse Practitioners</strong> (AANP)</li>
-                    <li class="flex gap-2 items-start"><span class="text-slate-300">&bull;</span> {{ activity.ceAmount }} CPE for <strong>Pharmacists</strong> (ACPE + NABP)</li>
-                    <li class="flex gap-2 items-start"><span class="text-slate-300">&bull;</span> {{ activity.ceAmount }} CNE for <strong>Nurses</strong> (ANCC)</li>
-                  </ul>
-                </div>
+          <div class="font-semibold text-slate-700">Duration:</div>
+          <div class="text-slate-600">{{ activity.duration || '15:00' }} mins</div>
+        </div>
 
-                <!-- Duration & review info -->
-                <div class="grid grid-cols-[130px_1fr] gap-y-2 gap-x-2 text-[11px] mb-8 mt-auto">
-                    <div class="font-semibold text-slate-700">Estimated Duration:</div>
-                    <div class="text-slate-600">{{ activity.duration || '15:00' }} minutes</div>
-                    
-                    <div class="font-semibold text-slate-700">Last Reviewed:</div>
-                    <div class="text-slate-600">{{ activity.releaseDate }}</div>
-                </div>
-
-                <button @click="startActivity" class="w-full bg-[#185542] hover:bg-[#124231] text-white font-bold tracking-widest uppercase py-4 rounded transition-colors flex items-center justify-center gap-2 shadow-sm">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                  Start Activity
-                </button>
-              </div>
-
-            </div>
-          </div>
+        <button @click="startActivity" class="w-full bg-[#185542] hover:bg-[#124231] text-white font-bold tracking-widest uppercase py-4 rounded transition-colors flex items-center justify-center gap-2 shadow-md">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7-7" />
+          </svg>
+          Start Activity
+        </button>
+        
+        <p class="text-[10px] text-center text-slate-400 mt-4 leading-tight">
+          Click above to begin the activity and earn {{ activity.ceAmount }} credits.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
         </div>
       </div>
