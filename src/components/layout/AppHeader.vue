@@ -30,7 +30,6 @@
             </div>
           </div>
         </div>
-
       </nav>
     </div>
     
@@ -45,8 +44,5 @@
 
 <script setup>
 import { useActivities } from '../../composables/useActivities';
-
-// We only need therapeuticAreas for the dropdown menu now!
-// All the search logic has been removed since FilterBar handles it globally.
 const { therapeuticAreas } = useActivities();
 </script>

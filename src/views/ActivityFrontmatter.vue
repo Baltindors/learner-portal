@@ -2,7 +2,7 @@
   <div class="relative min-h-screen bg-slate-50 flex" v-if="activity">
     
     <!-- Left Navigation Rail -->
-    <nav class="hidden md:flex flex-col items-center w-20 border-r border-slate-200 bg-white shadow-sm fixed h-full z-10 pt-20">
+    <nav class="hidden md:flex flex-col items-center w-20 border-r border-slate-200 bg-white shadow-sm fixed top-0 left-0 h-screen z-10 pt-20">
       <div class="flex flex-col gap-8 flex-grow">
         <a href="#overview" class="flex flex-col items-center gap-1 text-slate-400 hover:text-[#277FCB] transition-colors group">
           <svg class="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
@@ -30,11 +30,11 @@
     <!-- Main Content Area -->
     <div class="flex-grow md:ml-20">
       
-      <!-- Banner / Header Area (Simulated) -->
-      <div class="bg-gradient-to-r from-[#065184] to-[#1289A7] text-white pt-10 pb-20 relative overflow-hidden">
+      <!-- Banner / Header Area -->
+      <div class="bg-gradient-to-r from-[#065184] via-[#065184]/90 to-white pt-10 pb-20 relative overflow-hidden flex">
         <!-- Optional background image can go here based on data thumbnail using absolute positioning -->
-        <img v-if="activity.thumbnail" :src="activity.thumbnail" class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay max-h-80" alt="" />
-        <div class="container mx-auto max-w-7xl px-8 relative z-10 hidden md:block mt-8">
+        <img v-if="activity.thumbnail" :src="activity.thumbnail" class="absolute right-0 top-0 h-full w-1/2 object-cover object-right opacity-80 mix-blend-multiply" style="mask-image: linear-gradient(to right, transparent, black 100%); -webkit-mask-image: linear-gradient(to right, transparent, black 100%);" alt="" />
+        <div class="container mx-auto max-w-7xl px-8 relative z-10 hidden md:block mt-8 flex-grow">
           <h1 class="text-3xl font-extrabold uppercase tracking-tight max-w-4xl text-slate-800 bg-white/90 p-6 inline-block mb-4 leading-tight shadow-sm">{{ activity.title }}</h1>
           <div class="flex gap-4">
             <span class="bg-white text-slate-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm" v-if="activity.ceAmount">{{ activity.ceAmount }}</span>
@@ -231,7 +231,7 @@
 
                 <button @click="startActivity" class="w-full bg-[#185542] hover:bg-[#124231] text-white font-bold tracking-widest uppercase py-4 rounded transition-colors flex items-center justify-center gap-2 shadow-sm">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                  Register / Start
+                  Start Activity
                 </button>
               </div>
 
