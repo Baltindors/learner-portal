@@ -82,12 +82,8 @@ const router = useRouter();
 const { activeEpisode, isPlaying } = useActivities();
 
 const handleClick = () => {
-  // Set global player state
-  activeEpisode.value = props.activity;
-  isPlaying.value = true;
-  
-  // Navigate to player view
-  router.push({ name: 'activity', params: { id: props.activity.id } });
+  // Navigate to frontmatter view instead of player directly
+  router.push({ name: 'activity-frontmatter', params: { id: props.activity.id } });
 };
 
 // Handle adding/removing from library

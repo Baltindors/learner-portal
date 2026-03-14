@@ -19,6 +19,11 @@ const router = createRouter({
       component: () => import('../views/ActivityView.vue')
     },
     {
+      path: '/activity/:id/info',
+      name: 'activity-frontmatter',
+      component: () => import('../views/ActivityFrontmatter.vue')
+    },
+    {
       path: '/center/:name',
       name: 'center',
       component: () => import('../views/CenterView.vue') 
