@@ -93,32 +93,60 @@
     </div>
     
     <!-- END OF SERIES SCREEN -->
-<div v-if="isSeriesEnded" class="absolute inset-0 bg-slate-900 z-50 flex flex-col items-center justify-center p-8 text-center transition-opacity duration-700">
-      <h2 class="text-3xl font-black text-white mb-2">Series Complete</h2>
-      <p class="text-slate-400 mb-10 text-lg">Up Next / You May Also Like</p>
-      
-      <div class="flex flex-wrap justify-center gap-6 w-full max-w-4xl">
-        <div v-for="rel in relatedSeries" :key="rel.id" 
-             @click="loadActivityAndPlay(rel)"
-             class="w-64 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-5 cursor-pointer text-left transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-[#277FCB]/20">
-          <div class="h-32 bg-gradient-to-br from-slate-700 to-slate-800 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-            <img 
-              v-if="rel.thumbnail" 
-              :src="rel.thumbnail" 
-              class="w-full h-full object-cover"
-              alt=""
-            />
-            <svg v-else class="w-8 h-8 text-white/20" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
-          </div>
-          <div class="text-[10px] text-[#277FCB] font-bold mb-1 line-clamp-1 uppercase tracking-wider">{{rel.tags[0]}}</div>
-          <div class="text-sm font-semibold text-white line-clamp-2 leading-tight">{{rel.title}}</div>
-        </div>
+<div 
+  v-if="isSeriesEnded" 
+  class="absolute inset-0 z-50 flex flex-col items-center justify-center p-8 text-center transition-all duration-700"
+  :class="preferredMode === 'audio' ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-900'"
+>
+  <h2 class="text-3xl font-black mb-2" :class="preferredMode === 'audio' ? 'text-white' : 'text-slate-900'">
+    Series Complete
+  </h2>
+  <p class="mb-10 text-lg" :class="preferredMode === 'audio' ? 'text-slate-400' : 'text-slate-500'">
+    Up Next / You May Also Like
+  </p>
+  
+  <div class="flex flex-wrap justify-center gap-6 w-full max-w-4xl">
+    <div 
+      v-for="rel in relatedSeries" 
+      :key="rel.id" 
+      @click="loadActivityAndPlay(rel)"
+      class="w-64 border rounded-xl p-5 cursor-pointer text-left transition-all hover:-translate-y-1 hover:shadow-xl"
+      :class="preferredMode === 'audio' 
+        ? 'bg-white/5 hover:bg-white/10 border-white/10 hover:shadow-[#277FCB]/20' 
+        : 'bg-white hover:bg-slate-50 border-slate-200 shadow-sm shadow-slate-200'"
+    >
+      <div class="h-32 rounded-lg mb-4 flex items-center justify-center overflow-hidden" 
+           :class="preferredMode === 'audio' ? 'bg-slate-700' : 'bg-slate-200'">
+        <img 
+          v-if="rel.thumbnail" 
+          :src="rel.thumbnail" 
+          class="w-full h-full object-cover"
+          alt=""
+        />
+        <svg v-else class="w-8 h-8" :class="preferredMode === 'audio' ? 'text-white/20' : 'text-slate-400'" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
+        </svg>
       </div>
-      
-      <button @click="stopTimers(); activeEpisode = null" class="mt-10 px-8 py-3 rounded-full border border-white/20 text-sm font-bold opacity-80 hover:opacity-100 hover:bg-white/5 transition-colors">
-        Browse Library
-      </button>
+      <div class="text-[10px] text-[#277FCB] font-bold mb-1 line-clamp-1 uppercase tracking-wider">
+        {{rel.tags[0]}}
+      </div>
+      <div class="text-sm font-semibold line-clamp-2 leading-tight" 
+           :class="preferredMode === 'audio' ? 'text-white' : 'text-slate-800'">
+        {{rel.title}}
+      </div>
     </div>
+  </div>
+  
+  <button 
+    @click="stopTimers(); activeEpisode = null" 
+    class="mt-10 px-8 py-3 rounded-full border text-sm font-bold transition-colors"
+    :class="preferredMode === 'audio' 
+      ? 'border-white/20 text-white opacity-80 hover:opacity-100 hover:bg-white/5' 
+      : 'border-slate-300 text-slate-700 hover:bg-slate-100'"
+  >
+    Browse Library
+  </button>
+</div>
   </div>
 </template>
 
