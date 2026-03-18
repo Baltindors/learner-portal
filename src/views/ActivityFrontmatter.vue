@@ -1,5 +1,5 @@
 <template>
-  <div class="relative min-h-screen bg-slate-50 flex" v-if="activity">
+  <div class="relative min-h-screen bg-slate-50 flex flex-col md:flex-row w-full" v-if="activity">
     
     <!-- Left Navigation Rail -->
     <nav class="hidden md:flex flex-col items-center w-20 border-r border-slate-200 bg-white shadow-sm fixed top-0 left-0 h-screen z-10 pt-20">
@@ -28,47 +28,41 @@
     </nav>
 
     <!-- Main Content Area -->
-    <div class="flex-grow md:ml-20">
+    <div class="flex-grow flex flex-col md:ml-20">
       
       <!-- Banner / Header Area -->
-<div class="container mx-auto max-w-7xl px-6 lg:px-8 py-5">
-        <div class="relative w-full min-h-[260px] md:h-[280px] overflow-hidden bg-white border border-slate-200 flex rounded-2xl shadow-sm mb-8">
+      <div class="container mx-auto max-w-7xl px-6 lg:px-8 pt-8 pb-4">
+        <div class="relative w-full min-h-[260px] md:h-[280px] overflow-hidden bg-white border border-slate-200 flex rounded-2xl shadow-sm">
         
-        <div v-if="activity.thumbnail" class="absolute inset-0 md:inset-auto md:right-0 md:top-0 w-full md:w-3/5 h-full">
-          <img :src="activity.thumbnail" class="absolute inset-0 w-full h-full object-cover object-center md:object-right" />
-          <div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/20 md:hidden"></div>
-          <div class="hidden md:block absolute inset-0 bg-gradient-to-r from-white from-0% via-white/40 via-30% to-transparent to-50%"></div>
-        </div>
+          <div v-if="activity.thumbnail" class="absolute inset-0 md:inset-auto md:right-0 md:top-0 w-full md:w-3/5 h-full">
+            <img :src="activity.thumbnail" class="absolute inset-0 w-full h-full object-cover object-center md:object-right" />
+            <div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/20 md:hidden"></div>
+            <div class="hidden md:block absolute inset-0 bg-gradient-to-r from-white from-0% via-white/40 via-30% to-transparent to-50%"></div>
+          </div>
 
-        <div class="relative z-10 flex flex-col justify-center py-6 px-10">
-          <div class="max-w-xl">
-            <h1 class="font-['Inter'] text-2xl md:text-3xl font-extrabold tracking-tight text-[#0F172A] mb-6 leading-tight">
-              {{ activity.title }}
-            </h1>
-            <div class="flex flex-wrap gap-3">
-              <span class="bg-[#065184] text-white text-[10px] uppercase font-bold tracking-widest px-2.5 py-1.5 rounded shadow-sm">
-                  {{ activity.ceAmount }}
-              </span>
-              <span class="bg-[#065184] text-white text-[10px] uppercase font-bold tracking-widest px-2.5 py-1.5 rounded shadow-sm">
-                  Released: {{ activity.releaseDate }}
-              </span>
-              <span class="bg-[#065184] text-white text-[10px] uppercase font-bold tracking-widest px-2.5 py-1.5 rounded shadow-sm">
-                  {{ activity.type }}
-              </span>
+          <div class="relative z-10 flex flex-col justify-center py-6 px-10">
+            <div class="max-w-xl">
+              <h1 class="font-['Inter'] text-2xl md:text-3xl font-extrabold tracking-tight text-[#0F172A] mb-6 leading-tight">
+                {{ activity.title }}
+              </h1>
+              <div class="flex flex-wrap gap-3">
+                <span class="bg-[#065184] text-white text-[10px] uppercase font-bold tracking-widest px-2.5 py-1.5 rounded shadow-sm">
+                    {{ activity.ceAmount }}
+                </span>
+                <span class="bg-[#065184] text-white text-[10px] uppercase font-bold tracking-widest px-2.5 py-1.5 rounded shadow-sm">
+                    Released: {{ activity.releaseDate }}
+                </span>
+                <span class="bg-[#065184] text-white text-[10px] uppercase font-bold tracking-widest px-2.5 py-1.5 rounded shadow-sm">
+                    {{ activity.type }}
+                </span>
+              </div>
             </div>
-
+          </div>
         </div>
       </div>
-    </div>
-
-  <div class="container mx-auto max-w-7xl px-6 lg:px-8 relative z-20">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-      </div>
-  </div>
-</div>
 
       <!-- Centered Content -->
-      <div class="container mx-auto max-w-7xl px-6 lg:px-8 py-10 -mt-16 relative z-20">
+      <div class="container mx-auto max-w-7xl px-6 lg:px-8 pb-10">
         
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
           
@@ -202,77 +196,77 @@
                   </ul>
                 </div>
               </div>
-<div id="goals" class="border border-slate-200 rounded-lg overflow-hidden">
-  <button @click="toggleSection('goals')" class="w-full flex items-center justify-between p-5 bg-white hover:bg-slate-50 transition-colors">
-    <div class="flex items-center gap-4">
-      <span class="w-8 h-8 rounded-full bg-[#EAF2F8] text-[#277FCB] font-bold text-xs flex items-center justify-center">04</span>
-      <h2 class="text-sm font-bold uppercase tracking-widest text-slate-800">Learning Objectives</h2>
-    </div>
-    <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="{'rotate-180': openSections.goals}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-    </svg>
-  </button>
-  <div v-show="openSections.goals" class="p-6 pt-4 text-sm text-slate-600 border-t border-slate-100 bg-white">
-    <p class="mb-4">Upon completion of this activity, participants should be able to:</p>
-    <ul class="list-disc list-outside ml-4 space-y-3">
-      <li>Recognize the clinical presentations, epidemiology, and risk factors associated with pancreatic cancer.</li>
-      <li>Evaluate current strategies for early detection and surveillance in high-risk populations.</li>
-      <li>Describe how multidisciplinary care models contribute to improved patient outcomes.</li>
-    </ul>
-  </div>
-</div>
+              <div id="goals" class="border border-slate-200 rounded-lg overflow-hidden">
+                <button @click="toggleSection('goals')" class="w-full flex items-center justify-between p-5 bg-white hover:bg-slate-50 transition-colors">
+                  <div class="flex items-center gap-4">
+                    <span class="w-8 h-8 rounded-full bg-[#EAF2F8] text-[#277FCB] font-bold text-xs flex items-center justify-center">05</span>
+                    <h2 class="text-sm font-bold uppercase tracking-widest text-slate-800">Learning Objectives</h2>
+                  </div>
+                  <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="{'rotate-180': openSections.goals}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div v-show="openSections.goals" class="p-6 pt-4 text-sm text-slate-600 border-t border-slate-100 bg-white">
+                  <p class="mb-4">Upon completion of this activity, participants should be able to:</p>
+                  <ul class="list-disc list-outside ml-4 space-y-3">
+                    <li>Recognize the clinical presentations, epidemiology, and risk factors associated with pancreatic cancer.</li>
+                    <li>Evaluate current strategies for early detection and surveillance in high-risk populations.</li>
+                    <li>Describe how multidisciplinary care models contribute to improved patient outcomes.</li>
+                  </ul>
+                </div>
+              </div>
 
             </div>
           </div>
 
           <!-- Right Column (Snapshot Card) -->
-<div class="lg:col-span-4">
-  <div class="sticky top-24"> 
-    <div class="rounded-lg overflow-hidden shadow-lg border border-slate-200 bg-white flex flex-col">
-      
-      <div class="bg-[#065184] text-white p-4">
-        <h3 class="font-bold text-sm tracking-widest uppercase">Activity Snapshot</h3>
-      </div>
-      
-      <div class="p-6">
-        <div class="grid grid-cols-[110px_1fr] gap-y-4 gap-x-4 text-sm mb-8">
-          <div class="font-semibold text-slate-700">Activity Type:</div>
-          <div class="text-slate-600">{{ activity.type }}</div>
-          
-          <div class="font-semibold text-slate-700">Release Date:</div>
-          <div class="text-slate-600">{{ activity.releaseDate }}</div>
-          
-          <div class="font-semibold text-slate-700">Expiration Date:</div>
-          <div class="text-slate-600">Feb 26, 2027</div>
+          <div class="lg:col-span-4">
+            <div class="sticky top-8"> 
+              <div class="rounded-lg overflow-hidden shadow-lg border border-slate-200 bg-white flex flex-col">
+                
+                <div class="bg-[#065184] text-white p-4">
+                  <h3 class="font-bold text-sm tracking-widest uppercase">Activity Snapshot</h3>
+                </div>
+                
+                <div class="p-6">
+                  <div class="grid grid-cols-[110px_1fr] gap-y-4 gap-x-4 text-sm mb-8">
+                    <div class="font-semibold text-slate-700">Activity Type:</div>
+                    <div class="text-slate-600">{{ activity.type }}</div>
+                    
+                    <div class="font-semibold text-slate-700">Release Date:</div>
+                    <div class="text-slate-600">{{ activity.releaseDate }}</div>
+                    
+                    <div class="font-semibold text-slate-700">Expiration Date:</div>
+                    <div class="text-slate-600">Feb 26, 2027</div>
 
-          <div class="font-semibold text-slate-700">Activity Price:</div>
-          <div class="text-slate-600 text-[#03C84F] font-bold">Free</div>
+                    <div class="font-semibold text-slate-700">Activity Price:</div>
+                    <div class="text-slate-600 text-[#03C84F] font-bold">Free</div>
 
-          <div class="font-semibold text-slate-700">Duration:</div>
-          <div class="text-slate-600">{{ activity.duration || '15:00' }} mins</div>
-        </div>
+                    <div class="font-semibold text-slate-700">Duration:</div>
+                    <div class="text-slate-600">{{ activity.duration || '15:00' }} mins</div>
+                  </div>
 
-        <button @click="startActivity" class="w-full bg-[#185542] hover:bg-[#124231] text-white font-bold tracking-widest uppercase py-4 rounded transition-colors flex items-center justify-center gap-2 shadow-md">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7-7" />
-          </svg>
-          Start Activity
-        </button>
-        
-        <p class="text-[10px] text-center text-slate-400 mt-4 leading-tight">
-          Click above to begin the activity and earn {{ activity.ceAmount }} credits.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+                  <button @click="startActivity" class="w-full bg-[#185542] hover:bg-[#124231] text-white font-bold tracking-widest uppercase py-4 rounded transition-colors flex items-center justify-center gap-2 shadow-md">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7-7" />
+                    </svg>
+                    Start Activity
+                  </button>
+                  
+                  <p class="text-[10px] text-center text-slate-400 mt-4 leading-tight">
+                    Click above to begin the activity and earn {{ activity.ceAmount }} credits.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>
     </div>
   </div>
   
-  <div v-else class="min-h-screen flex items-center justify-center bg-slate-50">
+  <div v-else class="min-h-screen flex items-center justify-center bg-slate-50 w-full">
     <div class="animate-pulse flex flex-col items-center">
       <div class="w-12 h-12 bg-slate-200 rounded-full mb-4"></div>
       <div class="text-slate-400 font-bold uppercase tracking-widest text-xs">Loading Activity...</div>

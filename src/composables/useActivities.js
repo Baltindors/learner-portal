@@ -10,6 +10,9 @@ const activities = ref(mockActivities);
 // NEW: Global state for our active filter pills
 const activeFilters = ref([]);
 
+// NEW: Global state for hybrid playback mode ('video' or 'audio')
+const preferredMode = ref('video');
+
 // NEW: Player playback and countdown state
 const playbackProgress = ref(0); // 0 to 100
 const isCountingDown = ref(false);
@@ -206,6 +209,10 @@ export function useActivities() {
     startSimulatedPlayback();
   };
 
+  const togglePlaybackMode = () => {
+    preferredMode.value = preferredMode.value === 'video' ? 'audio' : 'video';
+  };
+
   return {
     activities,
     searchQuery,
@@ -229,6 +236,8 @@ export function useActivities() {
     getActivityById,
 
     // New playback features
+    preferredMode,
+    togglePlaybackMode,
     playbackProgress,
     isCountingDown,
     isSeriesEnded,

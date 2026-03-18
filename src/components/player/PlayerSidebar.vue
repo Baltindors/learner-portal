@@ -1,29 +1,33 @@
 <template>
-  <aside class="w-80 border-r border-white/10 hidden lg:flex flex-col">
-    <div class="p-6 border-b border-white/10">
-      <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Series Parts</h3>
+  <aside :class="['w-80 border-r hidden lg:flex flex-col transition-colors duration-500',
+                  preferredMode === 'audio' ? 'border-white/10 bg-transparent text-white' : 'border-slate-200 bg-white text-slate-900']">
+    <div :class="['p-6 border-b transition-colors duration-500', preferredMode === 'audio' ? 'border-white/10' : 'border-slate-200']">
+      <h3 :class="['text-xs font-bold uppercase tracking-widest mb-4 transition-colors duration-500', preferredMode === 'audio' ? 'text-slate-400' : 'text-slate-500']">Series Parts</h3>
       <div class="space-y-3">
         <div v-for="ep in currentSeries" :key="ep.id" 
              @click="playActivity(ep)"
-             :class="['p-3 rounded-lg cursor-pointer transition-all border', activeEpisode.id === ep.id ? 'bg-[#277FCB]/20 border-[#277FCB]' : 'bg-white/5 border-transparent hover:bg-white/10']">
+             :class="['p-3 rounded-lg cursor-pointer transition-all border', 
+                      activeEpisode.id === ep.id 
+                        ? (preferredMode === 'audio' ? 'bg-[#277FCB]/20 border-[#277FCB]' : 'bg-[#277FCB]/10 border-[#277FCB]') 
+                        : (preferredMode === 'audio' ? 'bg-white/5 border-transparent hover:bg-white/10' : 'bg-slate-50 border-slate-200 hover:bg-slate-100 hover:border-slate-300')]">
           <div class="text-[10px] font-bold text-[#277FCB] mb-1">PART {{getEpisodeOrder(ep.code)}}</div>
-          <div class="text-xs font-semibold leading-tight line-clamp-2">{{ep.title}}</div>
+          <div :class="['text-xs font-semibold leading-tight line-clamp-2 transition-colors duration-500', preferredMode === 'audio' ? 'text-white' : 'text-slate-900']">{{ep.title}}</div>
         </div>
       </div>
     </div>
     
     <div v-if="relatedSeries.length > 0" class="p-6 overflow-y-auto no-scrollbar">
-      <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">You May Also Like</h3>
+      <h3 :class="['text-xs font-bold uppercase tracking-widest mb-4 transition-colors duration-500', preferredMode === 'audio' ? 'text-slate-400' : 'text-slate-500']">You May Also Like</h3>
       <div class="space-y-6"> <div v-for="rel in relatedSeries" :key="rel.id" 
-             class="group flex flex-col gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+             :class="['group flex flex-col gap-3 p-3 rounded-xl transition-colors', preferredMode === 'audio' ? 'bg-white/5 hover:bg-white/10' : 'bg-slate-50 hover:bg-slate-100 border border-slate-200']">
           
-          <div @click="playActivity(rel)" class="w-full aspect-video bg-slate-800 rounded-lg overflow-hidden cursor-pointer relative">
+          <div @click="playActivity(rel)" :class="['w-full aspect-video rounded-lg overflow-hidden cursor-pointer relative', preferredMode === 'audio' ? 'bg-slate-800' : 'bg-slate-200']">
             <img 
               v-if="rel.thumbnail" 
               :src="rel.thumbnail" 
               class="w-full h-full object-cover transition-transform group-hover:scale-105" 
             />
-            <div v-else class="w-full h-full flex items-center justify-center text-white/20">
+            <div v-else :class="['w-full h-full flex items-center justify-center', preferredMode === 'audio' ? 'text-white/20' : 'text-slate-400']">
                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
             </div>
           </div>
@@ -32,7 +36,7 @@
             <div class="text-[10px] text-[#277FCB] font-bold uppercase tracking-wider mb-1">
               {{ rel.tags[0] }}
             </div>
-            <div @click="playActivity(rel)" class="text-sm font-bold text-white leading-snug cursor-pointer group-hover:text-[#277FCB] transition-colors">
+            <div @click="playActivity(rel)" :class="['text-sm font-bold leading-snug cursor-pointer group-hover:text-[#277FCB] transition-colors duration-500', preferredMode === 'audio' ? 'text-white' : 'text-slate-900']">
               {{ rel.title }}
             </div>
           </div>
@@ -65,7 +69,7 @@ import { useActivities } from '../../composables/useActivities';
 import InfoModal from '../ui/InfoModal.vue';
 
 const router = useRouter();
-const { activeEpisode, currentSeries, relatedSeries, getEpisodeOrder, loadActivityAndPlay } = useActivities();
+const { activeEpisode, currentSeries, relatedSeries, getEpisodeOrder, loadActivityAndPlay, preferredMode } = useActivities();
 
 const showInfoModal = ref(false);
 const activeInfoActivity = ref(null);

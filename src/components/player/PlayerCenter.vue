@@ -1,8 +1,10 @@
 <template>
-  <div class="flex-grow flex flex-col items-center justify-center p-8 bg-black/40 relative">
+  <div :class="['flex-grow flex flex-col items-center justify-center p-8 relative transition-colors duration-500', 
+                preferredMode === 'audio' ? 'bg-black/40' : 'bg-transparent']">
     <!-- MAIN ARTWORK/VISUAL -->
     <div class="w-full max-w-2xl text-center">
-      <div class="relative inline-block mb-10 group">
+      <!-- AUDIO MODE VISUALIZATION -->
+      <div v-if="preferredMode === 'audio'" class="relative inline-block mb-10 group">
         <div class="absolute -inset-4 bg-[#277FCB]/20 blur-3xl rounded-full opacity-50 group-hover:opacity-80 transition-opacity"></div>
         <div class="relative w-64 h-64 md:w-80 md:h-80 bg-gradient-to-br from-[#065184] to-[#277FCB] rounded-2xl shadow-2xl flex items-center justify-center overflow-hidden mx-auto">
           <svg class="w-32 h-32 text-white/20 absolute -bottom-4 -right-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
@@ -19,32 +21,52 @@
         </div>
       </div>
 
+      <!-- VIDEO MODE PLAYER PLACEHOLDER -->
+      <div v-else class="w-full aspect-video bg-black rounded-lg shadow-xl relative overflow-hidden mb-10 group flex items-center justify-center">
+         <div v-if="isPlaying" class="absolute inset-0 bg-transparent">
+           <!-- Simulated video playing -->
+           <div class="absolute top-4 left-4 text-white text-sm font-bold bg-black/50 px-3 py-1 rounded backdrop-blur">
+             Activity Video Stream
+           </div>
+         </div>
+         <div v-else class="absolute inset-0 flex items-center justify-center bg-black/40">
+           <!-- Paused state or poster -->
+           <div class="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+             <svg class="w-10 h-10 ml-2 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M4.5 3a.5.5 0 00-.5.5v13a.5.5 0 00.75.433l10-6.5a.5.5 0 000-.866l-10-6.5A.5.5 0 004.5 3z"/></svg>
+           </div>
+         </div>
+      </div>
+
       <!-- TIMESTAMPS / SEGMENTS -->
       <div class="mb-8 w-full max-w-lg mx-auto">
-        <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Jump to Section</h4>
+        <h4 :class="['text-[10px] font-bold uppercase tracking-widest mb-3 transition-colors duration-500', preferredMode === 'audio' ? 'text-slate-400' : 'text-slate-500']">Jump to Section</h4>
         <div class="flex flex-wrap justify-center gap-2">
           <button v-for="seg in mockSegments" :key="seg.time" 
-                  class="bg-white/5 hover:bg-white/10 border border-white/10 rounded-full px-4 py-1.5 text-[11px] font-medium transition-all">
-            <span class="opacity-50 mr-1">{{seg.time}}</span> {{seg.label}}
+                  :class="['border rounded-full px-4 py-1.5 text-[11px] font-medium transition-all', 
+                           preferredMode === 'audio' ? 'bg-white/5 hover:bg-white/10 border-white/10 text-white' : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700 shadow-sm']">
+            <span :class="['mr-1 transition-opacity', preferredMode === 'audio' ? 'opacity-50' : 'opacity-60']">{{seg.time}}</span> {{seg.label}}
           </button>
         </div>
       </div>
 
       <!-- CENTERED CONTROLS -->
-      <div class="w-full max-w-lg mx-auto bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-white/10 shadow-2xl">
+      <div :class="['w-full max-w-lg mx-auto backdrop-blur-md rounded-3xl p-6 border shadow-2xl transition-colors duration-500', 
+                    preferredMode === 'audio' ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200 shadow-slate-200/50']">
         <!-- Progress Bar -->
         <div class="mb-6">
-          <div class="flex justify-between text-[10px] text-slate-400 mb-2 tabular-nums">
+          <div :class="['flex justify-between text-[10px] mb-2 tabular-nums transition-colors duration-500', 
+                        preferredMode === 'audio' ? 'text-slate-400' : 'text-slate-500']">
             <span>00:{{ Math.floor((playbackProgress / 100) * 10).toString().padStart(2, '0') }}</span>
             <span>00:10</span>
           </div>
-          <div class="h-1.5 w-full bg-white/10 rounded-full relative cursor-pointer overflow-hidden group">
+          <div :class="['h-1.5 w-full rounded-full relative cursor-pointer overflow-hidden group transition-colors duration-500', 
+                        preferredMode === 'audio' ? 'bg-white/10' : 'bg-slate-200']">
             <div class="absolute top-0 left-0 h-full bg-[#277FCB] rounded-full transition-all group-hover:bg-[#3498db]" :style="{ width: `${playbackProgress}%` }"></div>
           </div>
         </div>
 
         <!-- Media Context -->
-        <div class="flex items-center justify-between">
+        <div :class="['flex items-center justify-between transition-colors duration-500', preferredMode === 'audio' ? 'text-white' : 'text-slate-700']">
           <button class="p-2 opacity-50 hover:opacity-100 transition-opacity"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4a1 1 0 00-2 0v12a1 1 0 002 0V4zM11 4a1 1 0 10-2 0v12a1 1 0 102 0V4zM17 4a1 1 0 10-2 0v12a1 1 0 102 0V4z"/></svg></button>
           
           <div class="flex items-center gap-6">
@@ -107,7 +129,7 @@ import { mockSegments } from '../../data/activities';
 const { 
   activeEpisode, isPlaying, playbackProgress, 
   isCountingDown, countdownValue, isSeriesEnded,
-  relatedSeries, loadActivityAndPlay, stopTimers, startSimulatedPlayback 
+  relatedSeries, loadActivityAndPlay, stopTimers, startSimulatedPlayback, preferredMode
 } = useActivities();
 
 const togglePlay = () => {
