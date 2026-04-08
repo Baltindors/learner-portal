@@ -2,7 +2,12 @@
   <div class="mb-12">
     <div class="flex items-center justify-between mb-4">
       <h2 class="text-xl font-bold border-l-4 border-[#277FCB] pl-3">{{ title }} Activities</h2>
-      <a href="#" class="text-sm font-semibold text-[#277FCB] hover:underline">See All</a>
+      <router-link
+      :to="{name: 'center', params: { name: title}}"
+      class="text-sm font-semibold text-[#277FCB] hover:underline"
+      >
+        See All
+      </router-link>
     </div>
     <div class="flex overflow-x-auto pb-4 gap-6 no-scrollbar">
       <div v-for="item in items" :key="item.id" class="flex-shrink-0 w-72">
