@@ -13,6 +13,11 @@ const activeFilters = ref([]);
 // NEW: Global state for hybrid playback mode ('video' or 'audio')
 const preferredMode = ref('video');
 
+// NEW: Global state for AI Prototype Features
+const searchMode = ref('standard'); // 'standard' | 'ai'
+const isAiProcessing = ref(false);
+const aiResponseInsight = ref('');
+
 // NEW: Player playback and countdown state
 const playbackProgress = ref(0); // 0 to 100
 const isCountingDown = ref(false);
@@ -50,11 +55,24 @@ export function useActivities() {
     // 1. Text Search
     if (searchQuery.value) {
       const q = searchQuery.value.toLowerCase();
-      result = result.filter(item => 
-        item.title?.toLowerCase().includes(q) || 
-        item.code?.toLowerCase().includes(q) || 
-        item.tags?.some(tag => tag.toLowerCase().includes(q))
-      );
+      
+      if (searchMode.value === 'ai') {
+        const isLungCancerQuery = q.includes('lung') || q.includes('cancer');
+        result = result.filter(item => {
+          if (isLungCancerQuery) {
+            return item.tags?.includes('Oncology') || item.title?.toLowerCase().includes('nsclc');
+          }
+          return item.title?.toLowerCase().includes(q) || 
+                 item.code?.toLowerCase().includes(q) || 
+                 item.tags?.some(tag => tag.toLowerCase().includes(q));
+        });
+      } else {
+        result = result.filter(item => 
+          item.title?.toLowerCase().includes(q) || 
+          item.code?.toLowerCase().includes(q) || 
+          item.tags?.some(tag => tag.toLowerCase().includes(q))
+        );
+      }
     }
 
     if (activeFilters.value.length > 0) {
@@ -234,6 +252,11 @@ export function useActivities() {
     relatedSeries,
     getEpisodeOrder,
     getActivityById,
+
+    // AI Prototype Features
+    searchMode,
+    isAiProcessing,
+    aiResponseInsight,
 
     // New playback features
     preferredMode,
