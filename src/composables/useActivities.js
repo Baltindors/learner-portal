@@ -14,6 +14,8 @@ const activeFilters = ref([]);
 const userProfile = ref({
   professions: [],
   specialties: [],
+  formats: [],
+  timeCommitments: [],
   isCustomHomepage: localStorage.getItem('isCustomHomepage') === 'true'
 });
 
@@ -244,6 +246,18 @@ export function useActivities() {
     localStorage.setItem('isCustomHomepage', userProfile.value.isCustomHomepage);
   };
 
+  const mapCmeToDuration = (ceAmount) => {
+    switch (ceAmount) {
+      case '0.25 CE': return '15 Minutes';
+      case '0.50 CE': return '30 Minutes';
+      case '0.75 CE': return '45 Minutes';
+      case '1.00 CE': return '1 Hour';
+      case '1.50 CE': return '1.5 Hours';
+      case '2.00 CE': return '2 Hours';
+      default: return ceAmount;
+    }
+  };
+
   const tailoredActivities = computed(() => {
     if (userProfile.value.specialties.length === 0) return [];
     return activities.value.filter(item => {
@@ -264,6 +278,7 @@ export function useActivities() {
     userProfile,
     toggleCustomHomepage,
     tailoredActivities,
+    mapCmeToDuration,
     
     // Exporting the new filter variables & functions
     activeFilters,

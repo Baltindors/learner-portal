@@ -9,12 +9,12 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
             </svg>
           </div>
-          <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#065184] to-[#277FCB]">Tailor Your Experience</h2>
-          <p class="text-slate-500 mt-2">Select your profession and specialties to personalize your learning center.</p>
+          <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#065184] to-[#277FCB]">Personalize Your Learning Journey</h2>
+          <p class="text-slate-500 mt-2">Tell us what you're looking for so we can curate the best evidence-based content for your needs.</p>
         </div>
         
         <div class="mb-6">
-          <label class="block font-semibold mb-3 text-slate-800 text-sm uppercase tracking-wider">Your Profession</label>
+          <label class="block font-semibold mb-3 text-slate-800 text-sm uppercase tracking-wider">I am a...</label>
           <div class="flex flex-wrap gap-2">
             <button v-for="prof in professionsList" :key="prof" 
               class="px-4 py-2 border rounded-full text-sm font-medium transition-all"
@@ -25,14 +25,38 @@
           </div>
         </div>
 
-        <div class="mb-8">
-          <label class="block font-semibold mb-3 text-slate-800 text-sm uppercase tracking-wider">Your Specialties</label>
+        <div class="mb-6">
+          <label class="block font-semibold mb-3 text-slate-800 text-sm uppercase tracking-wider">I'm interested in...</label>
           <div class="flex flex-wrap gap-2">
             <button v-for="spec in therapeuticAreas" :key="spec" 
               class="px-4 py-2 border rounded-full text-sm font-medium transition-all"
               :class="tempProfile.specialties.includes(spec) ? 'bg-[#277FCB] text-white border-[#277FCB] shadow-md transform scale-105' : 'bg-white text-slate-600 border-slate-200 hover:border-[#277FCB] hover:text-[#277FCB]'"
               @click="toggleTempSpecialty(spec)">
               {{ spec }}
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block font-semibold mb-3 text-slate-800 text-sm uppercase tracking-wider">Preferred Formats</label>
+          <div class="flex flex-wrap gap-2">
+            <button v-for="format in activityTypesList" :key="format" 
+              class="px-4 py-2 border rounded-full text-sm font-medium transition-all"
+              :class="tempProfile.formats.includes(format) ? 'bg-[#277FCB] text-white border-[#277FCB] shadow-md transform scale-105' : 'bg-white text-slate-600 border-slate-200 hover:border-[#277FCB] hover:text-[#277FCB]'"
+              @click="toggleTempFormat(format)">
+              {{ format }}
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <label class="block font-semibold mb-3 text-slate-800 text-sm uppercase tracking-wider">Time Commitment</label>
+          <div class="flex flex-wrap gap-2">
+            <button v-for="time in cmeAmountsList" :key="time" 
+              class="px-4 py-2 border rounded-full text-sm font-medium transition-all"
+              :class="tempProfile.timeCommitments.includes(time) ? 'bg-[#277FCB] text-white border-[#277FCB] shadow-md transform scale-105' : 'bg-white text-slate-600 border-slate-200 hover:border-[#277FCB] hover:text-[#277FCB]'"
+              @click="toggleTempTime(time)">
+              {{ mapCmeToDuration(time) }}
             </button>
           </div>
         </div>
@@ -78,11 +102,16 @@
       <!-- Rails -->
       <ActivityRail v-if="continueWatching.length > 0" title="Continue Watching" :items="continueWatching" />
       
-      <div v-if="userProfile.specialties.length > 0">
-        <ActivityRail :title="`Recommended for ${userProfile.specialties[0]}`" :items="tailoredActivities" />
-      </div>
-      
       <ActivityRail v-if="mySavedLibrary.length > 0" title="My Saved Activities" :items="mySavedLibrary" />
+
+      <div v-if="userProfile.specialties.length > 0">
+        <ActivityRail 
+          v-for="specialty in userProfile.specialties" 
+          :key="specialty"
+          :title="specialty" 
+          :items="getActivitiesForSpecialty(specialty)" 
+        />
+      </div>
       
     </div>
   </div>
@@ -91,14 +120,16 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useActivities } from '../composables/useActivities';
-import { professionsList } from '../data/activities';
+import { professionsList, activityTypesList, cmeAmountsList } from '../data/activities';
 import ActivityRail from '../components/ui/ActivityRail.vue';
 
-const { userProfile, toggleCustomHomepage, mySavedLibrary, activities, tailoredActivities, therapeuticAreas } = useActivities();
+const { userProfile, toggleCustomHomepage, mySavedLibrary, activities, therapeuticAreas, mapCmeToDuration } = useActivities();
 
 const tempProfile = ref({
   professions: [...userProfile.value.professions],
-  specialties: [...userProfile.value.specialties]
+  specialties: [...userProfile.value.specialties],
+  formats: [...userProfile.value.formats],
+  timeCommitments: [...userProfile.value.timeCommitments]
 });
 
 const toggleTempProfession = (prof) => {
@@ -113,9 +144,29 @@ const toggleTempSpecialty = (spec) => {
   else tempProfile.value.specialties.push(spec);
 };
 
+const toggleTempFormat = (format) => {
+  const index = tempProfile.value.formats.indexOf(format);
+  if (index >= 0) tempProfile.value.formats.splice(index, 1);
+  else tempProfile.value.formats.push(format);
+};
+
+const toggleTempTime = (time) => {
+  const index = tempProfile.value.timeCommitments.indexOf(time);
+  if (index >= 0) tempProfile.value.timeCommitments.splice(index, 1);
+  else tempProfile.value.timeCommitments.push(time);
+};
+
 const saveProfile = () => {
   userProfile.value.professions = [...tempProfile.value.professions];
   userProfile.value.specialties = [...tempProfile.value.specialties];
+  userProfile.value.formats = [...tempProfile.value.formats];
+  userProfile.value.timeCommitments = [...tempProfile.value.timeCommitments];
+};
+
+const getActivitiesForSpecialty = (specialty) => {
+  return activities.value.filter(item => 
+    item.therapeuticAreas?.includes(specialty) || item.tags?.includes(specialty)
+  );
 };
 
 const continueWatching = computed(() => {
