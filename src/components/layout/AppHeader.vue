@@ -7,8 +7,8 @@
       <div class="hidden md:block h-6 w-px bg-white/20 mx-2"></div>
       
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium opacity-90">
-        <router-link to="/" class="hover:text-white border-b-2 border-transparent hover:border-white transition-all pb-1" active-class="border-white text-white">Home</router-link>
-        <a href="#" class="hover:opacity-100 opacity-70 transition-opacity">Credit Center</a>
+        <router-link to="/" class="hover:text-white border-b-2 border-transparent hover:border-white transition-all pb-1" active-class="border-white text-white" exact-active-class="border-white text-white">Home</router-link>
+        <router-link to="/your-center" class="hover:opacity-100 opacity-70 transition-opacity" active-class="opacity-100 border-b-2 border-white pb-1">Your Center</router-link>        <a href="#" class="hover:opacity-100 opacity-70 transition-opacity">Credit Center</a>
         
         <div class="relative group py-2">
           <button class="flex items-center gap-1 hover:opacity-100 opacity-70 transition-opacity">

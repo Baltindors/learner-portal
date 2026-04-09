@@ -27,11 +27,25 @@ const router = createRouter({
       path: '/center/:name',
       name: 'center',
       component: () => import('../views/CenterView.vue') 
+    },
+    {
+      path: '/your-center',
+      name: 'your-center',
+      component: () => import('../views/YourCenterView.vue')
     }
   ],
   scrollBehavior() {
     return { top: 0, behavior: 'smooth' }
   }
 })
+
+router.beforeEach((to, from, next) => {
+  const isCustomHomepage = localStorage.getItem('isCustomHomepage') === 'true';
+  if (to.path === '/' && isCustomHomepage) {
+    next({ name: 'your-center' });
+  } else {
+    next();
+  }
+});
 
 export default router

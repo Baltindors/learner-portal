@@ -10,6 +10,13 @@ const activities = ref(mockActivities);
 // NEW: Global state for our active filter pills
 const activeFilters = ref([]);
 
+// NEW: Global state for user profile and personalized homepage
+const userProfile = ref({
+  professions: [],
+  specialties: [],
+  isCustomHomepage: localStorage.getItem('isCustomHomepage') === 'true'
+});
+
 // NEW: Global state for hybrid playback mode ('video' or 'audio')
 const preferredMode = ref('video');
 
@@ -231,6 +238,19 @@ export function useActivities() {
     preferredMode.value = preferredMode.value === 'video' ? 'audio' : 'video';
   };
 
+  // --- NEW: USER PROFILE PREFERENCES ---
+  const toggleCustomHomepage = () => {
+    userProfile.value.isCustomHomepage = !userProfile.value.isCustomHomepage;
+    localStorage.setItem('isCustomHomepage', userProfile.value.isCustomHomepage);
+  };
+
+  const tailoredActivities = computed(() => {
+    if (userProfile.value.specialties.length === 0) return [];
+    return activities.value.filter(item => {
+      return userProfile.value.specialties.some(sp => item.therapeuticAreas?.includes(sp) || item.tags?.includes(sp));
+    });
+  });
+
   return {
     activities,
     searchQuery,
@@ -239,6 +259,11 @@ export function useActivities() {
     groupedByArea,
     setGlobalSearch,
     mySavedLibrary,
+    
+    // Exporting the new user profile variables & functions
+    userProfile,
+    toggleCustomHomepage,
+    tailoredActivities,
     
     // Exporting the new filter variables & functions
     activeFilters,
