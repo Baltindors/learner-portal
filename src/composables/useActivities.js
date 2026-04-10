@@ -7,10 +7,13 @@ const activeEpisode = ref(null);
 const isPlaying = ref(false);
 const activities = ref(mockActivities);
 
-// NEW: Global state for our active filter pills
+// Controls the prominent search panel visibility
+const isSearchPanelOpen = ref(false); 
+
+// Global state for our active filter pills
 const activeFilters = ref([]);
 
-// NEW: Global state for user profile and personalized homepage
+// Global state for user profile and personalized homepage
 const userProfile = ref({
   professions: [],
   specialties: [],
@@ -19,15 +22,15 @@ const userProfile = ref({
   isCustomHomepage: localStorage.getItem('isCustomHomepage') === 'true'
 });
 
-// NEW: Global state for hybrid playback mode ('video' or 'audio')
+// Global state for hybrid playback mode ('video' or 'audio')
 const preferredMode = ref('video');
 
-// NEW: Global state for AI Prototype Features
+// Global state for AI Prototype Features
 const searchMode = ref('standard'); // 'standard' | 'ai'
 const isAiProcessing = ref(false);
 const aiResponseInsight = ref('');
 
-// NEW: Player playback and countdown state
+// Player playback and countdown state
 const playbackProgress = ref(0); // 0 to 100
 const isCountingDown = ref(false);
 const isSeriesEnded = ref(false);
@@ -42,7 +45,7 @@ export function useActivities() {
     return activities.value.filter(item => item.inLibrary === true);
   });
 
-  // --- NEW: FILTER MANIPULATION METHODS ---
+  // --- FILTER MANIPULATION METHODS ---
   const addFilter = (category, value) => {
     const exists = activeFilters.value.some(f => f.category === category && f.value === value);
     if (!exists) {
@@ -85,7 +88,6 @@ export function useActivities() {
     }
 
     if (activeFilters.value.length > 0) {
-
       const filtersByCategory = activeFilters.value.reduce((groups, filter) => {
         if (!groups[filter.category]) groups[filter.category] = [];
         groups[filter.category].push(filter.value);
@@ -94,10 +96,7 @@ export function useActivities() {
 
       // Step B: Filter the activities
       result = result.filter(item => {
-        // An activity must pass EVERY category that has an active filter (AND between categories)
         return Object.entries(filtersByCategory).every(([category, selectedValues]) => {
-          
-          // An activity must match AT LEAST ONE value inside this category (OR within category)
           return selectedValues.some(value => {
             if (category === 'Profession') return item.professions?.includes(value);
             if (category === 'Specialty') return item.specialties?.includes(value) || item.tags?.includes(value);
@@ -105,7 +104,6 @@ export function useActivities() {
             if (category === 'CME Amount' || category === 'CME') return item.cmeAmount === value || item.ceAmount === value;
             return false;
           });
-
         });
       });
     }
@@ -113,11 +111,8 @@ export function useActivities() {
     return result;
   });
 
-  // filteredList now just returns the master processed list
   const filteredList = computed(() => processedActivities.value);
 
-  // groupedByArea now groups the processed list! 
-  // (If a user filters by "Nurse", rails without Nurse activities will automatically hide)
   const groupedByArea = computed(() => {
     const groups = {};
     therapeuticAreas.value.forEach(area => {
@@ -159,7 +154,7 @@ export function useActivities() {
     return activities.value.find(item => item.id === id);
   };
 
-  // --- NEW: PLAYBACK AND AUTO-ADVANCE LOGIC ---
+  // --- PLAYBACK AND AUTO-ADVANCE LOGIC ---
   const stopTimers = () => {
     if (playbackTimer) clearInterval(playbackTimer);
     if (countdownTimer) clearInterval(countdownTimer);
@@ -168,15 +163,13 @@ export function useActivities() {
   };
 
   const playNextEpisode = () => {
-    // Determine next episode
     const currentIndex = currentSeries.value.findIndex(ep => ep.id === activeEpisode.value?.id);
     if (currentIndex >= 0 && currentIndex < currentSeries.value.length - 1) {
       activeEpisode.value = currentSeries.value[currentIndex + 1];
       startSimulatedPlayback();
     } else {
-      // End of series
       stopTimers();
-      activeEpisode.value = null; // We can use null or a flag to show the end screen
+      activeEpisode.value = null; 
       isPlaying.value = false;
     }
   };
@@ -204,7 +197,6 @@ export function useActivities() {
     isSeriesEnded.value = false;
     playbackProgress.value = 0;
     
-    // Simulate 10-second playback (updates 100 times, every 100ms)
     playbackTimer = setInterval(() => {
       if (isPlaying.value) {
         playbackProgress.value += 1;
@@ -213,12 +205,10 @@ export function useActivities() {
           playbackProgress.value = 100;
           isPlaying.value = false;
           
-          // Check if this was the last episode
           const currentIndex = currentSeries.value.findIndex(ep => ep.id === activeEpisode.value?.id);
           if (currentIndex >= 0 && currentIndex < currentSeries.value.length - 1) {
             startCountdown();
           } else {
-            // Reached end of series immediately show end screen
             stopTimers();
             isCountingDown.value = false;
             isSeriesEnded.value = true;
@@ -240,7 +230,7 @@ export function useActivities() {
     preferredMode.value = preferredMode.value === 'video' ? 'audio' : 'video';
   };
 
-  // --- NEW: USER PROFILE PREFERENCES ---
+  // --- USER PROFILE PREFERENCES ---
   const toggleCustomHomepage = () => {
     userProfile.value.isCustomHomepage = !userProfile.value.isCustomHomepage;
     localStorage.setItem('isCustomHomepage', userProfile.value.isCustomHomepage);
@@ -297,6 +287,9 @@ export function useActivities() {
     searchMode,
     isAiProcessing,
     aiResponseInsight,
+
+    // ADDED THIS EXPORT SO THE HEADER & APP.VUE CAN USE IT
+    isSearchPanelOpen,
 
     // New playback features
     preferredMode,
